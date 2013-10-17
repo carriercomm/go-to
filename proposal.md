@@ -4,12 +4,16 @@
 
 # Summary
 
-The project is intended to provide an automation for *direct* OS image migration
+The project is intended to provide an automation of OS Container migration
 between Private Cloud and different Public Cloud providers
 as well as in-depth security report covering the approach, methodologies, testing, risk rating and challenges
 associated with the project.
 
 #### The project should support: ####
-  * __Linux__ based OS images
+  * __Linux__ OS containers (LXC)
   * __OpenStack__ as a Private Cloud infrastructure
   * __Amazon AWS__ and __Windows Azure__ as a Public Cloud infrastructure
+
+#### Milestones: ####
+  * Scripts to automate migration
+  * Dashboard to upload/copy/download and move containers
