@@ -4,7 +4,7 @@ Specification
 Goal of the project:
 -------------------
 
-Provide a tool for seamless migration of virtual machine images between different Cloud Providers.
+Provide a tool for seamless migration of linux containers between different Cloud Providers.
 
 
 Initial Features:
@@ -15,7 +15,23 @@ Initial Features:
 * Document Security Concers
 
 
-API:
----
+Workflow:
+--------
 
-  $go-to --provider <provider> --hostname <hostname>
+    Vagrant VM:                            AWS EC2 VM:
+    +----------------+                     +---------------+
+    |  +----------+  |    (1)              |  +---------+  |
+    |  |    C0    |<------------+------------>|    C1   |<-------.   
+    |  +----------+  |          |          |  +---------+  |     |
+    +----------------+          |          +---------------+     | 
+                                |                                |
+                                |                                | (2)
+                                |          Azure VM:             |
+                                |          +---------------+     |
+                                |          |  +---------+  |     |
+                                '------------>|    C2   |<-------'
+                                           |  +---------+  |
+                                           +---------------+
+                                           
+1. Move container to cloud(s) and back to development env. 
+2. Move container between cloud(s)
