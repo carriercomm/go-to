@@ -6,14 +6,12 @@ Goal of the project:
 
 Provide a tool for seamless migration of linux containers between different Cloud Providers.
 
-
 Initial Features:
 ----------------
 
-* Support AWS
-* Support Azure
-* Document Security Concers
-
+* Support container import to/export from AWS EC2
+* Support container import to/export from Azure VMs
+* Document Security Concers of container migration
 
 Workflow:
 --------
@@ -35,3 +33,20 @@ Workflow:
                                            
 1. Move container to cloud(s) and back to development env. 
 2. Move container between cloud(s)
+
+GoTo Architecture:
+----------------
+
+    +---------------+ +-------------+ +------------------------+
+    | GoTo CLI Tool | | GoTo Web UI | | GoTo Remote Cntrl srv  |
+    +---------------+ +-------------+ +------------------------+
+    +----------------------------------------------------------+
+    | GoTo API                                                 |
+    +----------------------------------------------------------+
+    +--------+ +-------------+ +-------------+ +---------------+
+    | Docker | | LXC Toolkit | | AWS Toolkit | | Azure Toolkit |
+    +--------+ +-------------+ +-------------+ +---------------+
+    +----------------------------------------------------------+
+    | Guest OS                                                 |
+    +----------------------------------------------------------+
+    
