@@ -49,6 +49,8 @@ Stopping container:
 Use this command to archive a container:
 
     $ sudo tar --numeric-owner -czvf c1.tgz /var/lib/lxc/c1
+    
+When moving that way container name shoud be uniq. You can't rename container.
 
 
     
