@@ -35,6 +35,8 @@ Forward ports:
     $ sudo iptables -t nat -D PREROUTING 1
     $ sudo iptables -t nat -L
     
+NOTE: you need to provide an IP of interface in <C>.
+    
 Snapshotting with lxc-snapshot:
 
 lxc-snapshot creates, lists, and restores container snapshots.
