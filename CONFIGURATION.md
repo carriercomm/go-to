@@ -61,4 +61,24 @@ Use this command to archive a container:
 When moving that way container name shoud be uniq. You can't rename container.
 
 
+Moving with Docker:
+-------------------
+
+Docker add a layer of automation on top of lxc tools.
+
+Install Docker:
+
+    http://docs.docker.io/en/latest/installation/ubuntulinux/
+    
+
+Migration is done via docker import / export:
+
+    # export
+    $ sudo docker export <CID> > <CID>.tar
+    # import
+    $ cat <CID>.tar | sudo docker import -
+    $ sudo docker run -i -t <CID> /bin/bash
+    
+
+
     
