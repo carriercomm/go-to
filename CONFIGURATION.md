@@ -64,7 +64,7 @@ When moving that way container name shoud be uniq. You can't rename container.
 Moving with Docker:
 -------------------
 
-Docker add a layer of automation on top of lxc tools.
+Docker adds a layer of automation on top of lxc tools.
 
 Install Docker:
 
