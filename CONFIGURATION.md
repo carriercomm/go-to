@@ -17,3 +17,5 @@ lxc-ls is confusing:
     Name:           c1
     State:          STOPPED
     
+NOTE: lxc-ls stalls if you try to run `lxc-start -n <C>` and then close the console.
+    
