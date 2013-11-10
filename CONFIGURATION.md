@@ -29,6 +29,9 @@ Forward ports:
 
     $ ifconfig | grep -A 1 lxc
     $ sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to <lxc-ip>:<port>
+    # in case you want to delete or change forwards:
+    $ sudo iptables -t nat -D PREROUTING 1
+    $ sudo iptables -t nat -L
     
 Snapshotting with lxc-snapshot:
 
