@@ -22,5 +22,11 @@ NOTE: lxc-ls stalls if you try to run `lxc-start -n <C>` and then close the cons
     $ sudo lxc-start -d -n <C>
     $ sudo lxc-console -n <C>
     # Will log you into a container, to quit use C-a q.
-    NOTE: the above command does not work if you lauched container(lxc-start) withod -d option.
+    
+NOTE: the above command does not work if you lauched container(lxc-start) withod -d option.
+
+Forward ports:
+
+    $ ifconfig | grep -A 1 lxc
+    $ sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to <lxc-ip>:<port>
     
