@@ -2,6 +2,8 @@ Configuring Guest OS
 =====================
 Based on Ubuntu 12.04.
 
+Installing packages:
+-------------------
 Upgrade your kernel to 3.8 installing backport apt-get.
 
 Install new lxc via PPA: https://launchpad.net/~ubuntu-lxc/+archive/daily
@@ -27,6 +29,8 @@ NOTE: lxc-ls stalls if you try to run `lxc-start -n <C>` and then close the cons
     
 NOTE: the above command does not work if you lauched container(lxc-start) withod -d option.
 
+Network setup:
+--------------
 Forward ports:
 
     $ ifconfig | grep -A 1 lxc
@@ -36,7 +40,9 @@ Forward ports:
     $ sudo iptables -t nat -L
     
 NOTE: you need to provide an IP of interface in <C>.
-    
+
+Moving container:
+-----------------
 Snapshotting with lxc-snapshot:
 
 lxc-snapshot creates, lists, and restores container snapshots.
