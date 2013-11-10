@@ -37,5 +37,12 @@ Snapshotting with lxc-snapshot:
 
 lxc-snapshot creates, lists, and restores container snapshots.
 
+Snapshots are deltas to original containers.
+
+
+Stopping container:
+
+    $ sudo lxc-stop -n c1 -s -t 60
+
 
     
