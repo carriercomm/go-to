@@ -18,4 +18,9 @@ lxc-ls is confusing:
     State:          STOPPED
     
 NOTE: lxc-ls stalls if you try to run `lxc-start -n <C>` and then close the console.
+
+    $ sudo lxc-start -d -n <C>
+    $ sudo lxc-console -n <C>
+    # Will log you into a container, to quit use C-a q.
+    NOTE: the above command does not work if you lauched container(lxc-start) withod -d option.
     
