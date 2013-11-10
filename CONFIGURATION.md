@@ -2,6 +2,8 @@ Configuring Guest OS
 =====================
 Based on Ubuntu 12.04.
 
+Upgrade your kernel to 3.8 installing backport apt-get.
+
 Install new lxc via PPA: https://launchpad.net/~ubuntu-lxc/+archive/daily
 
     sudo add-apt-repository ppa:ubuntu-lxc/daily
@@ -43,6 +45,10 @@ Snapshots are deltas to original containers.
 Stopping container:
 
     $ sudo lxc-stop -n c1 -s -t 60
+    
+Use this command to archive a container:
+
+    $ sudo tar --numeric-owner -czvf c1.tgz /var/lib/lxc/c1
 
 
     
