@@ -3,7 +3,7 @@
 % November 17, 2013
 
 # Problem statement
-At the current moment there is no interoperability between different Cloud Providers.
+At the current moment there is no OS configuration interoperability between different Cloud Providers.
 This fact complicates maintanance of Hybrid Cloud configurations
 in a way that one must maintain separate OS configuration
 per Cloud Provider and separate configuration for development environment.
@@ -14,7 +14,7 @@ Provide an automated migration of an OS image between different Cloud Providers 
 Without any changes in migrating image.
 
 # Success Criteria
-* Fully automated migration pipeline.
+* Fully automated OS image migration pipeline.
 
 # In Scope
 * Ubuntu 12.04
