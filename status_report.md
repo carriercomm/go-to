@@ -22,6 +22,8 @@ There are two common apporaches to maintain configuration consistency:
 1. Using configuration system (CFEngine, Puppet or Cheff)
 2. Nested virtualization
 
+The second approach is used in the current project.
+
 ## Configuartion System
 Pros:
 * OS agnostic (as long as configuration is provided)
@@ -60,7 +62,6 @@ Cons:
 * Manually create an LXC snapshot and move it between cloud providers
 * Verify the ability to set up container via Docker in VirualBox, Amazon EC2 and Windows Azure
 * Manually export container via Docker and import it under different Cloud Provider
-
 
 ## In Progess:
 * Provide script for configurataion of Guest os in VirtualBox, Amazon Ec2 and Windows Azure
