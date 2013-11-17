@@ -14,10 +14,11 @@ Provide an automated migration of an OS image between different Cloud Providers 
 Without any changes in migrating image.
 
 # Success Criteria
-* Fully automated OS image migration pipeline: export, transfer and import
+* Fully automated OS image migration pipeline: Export, Transfer, Import
 
 # Evaluating Approach
 There are two common apporaches to maintain configuration consistency:
+
 1. Using configuration system (CFEngine, Puppet or Cheff)
 2. Nested virtualization
 
