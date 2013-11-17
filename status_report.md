@@ -14,7 +14,7 @@ Provide an automated migration of an OS image between different Cloud Providers 
 Without any changes in migrating image.
 
 # Success Criteria
-* Fully automated OS image migration pipeline: Export, Transfer, Import
+Functional and fully automated OS image migration pipeline with the following stages: Export, Transfer and Import.
 
 # Evaluating Approach
 There are two common apporaches to maintain configuration consistency:
