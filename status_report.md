@@ -51,7 +51,7 @@ to guarantee Confidentiality, Integrity, and Availability (CIA) of data.
 
 ###Risks Mitigation:
 * Build "air gap" between container and sensitive data
-* Encrypt sensistive data. Inject keys into trusted container to access encrypted data
+* Encrypt sensitive data. Inject keys into trusted container to access encrypted data
 * Require authentication and authorization for activating any stage of the pipeline
 * Log every changes in the pipeline for later audit
 
@@ -84,8 +84,8 @@ to guarantee Confidentiality, Integrity, and Availability (CIA) of data.
 
 ## Planned:
 * Provide a CLI tool on top of the API
-* Add functionaly to track changes and API for auditing
-* Build mechanism to provide "air gap" for sensetive data
+* Add functionality to track changes and API for auditing
+* Build mechanism to provide "air gap" for sensitive data
 
 # About The Author
 Software Development Engineer, with 5.5 years of experience in large multi-datacenter scale environments. 
