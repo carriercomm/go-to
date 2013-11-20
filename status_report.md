@@ -75,6 +75,7 @@ Software Development Engineer, with 5.5 years of experience in large multi-datac
 # References
 * [Project Home](https://github.com/lvsl/go-to)
 * [Project Specification](https://github.com/lvsl/go-to/blob/master/SPEC.md)
+* [System Level Virtualization](http://en.wikipedia.org/wiki/Operating_system-level_virtualization)
 * [LXC](http://linuxcontainers.org/)
 * [Docker](https://www.docker.io/)
 * [Cgroups](https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt)
