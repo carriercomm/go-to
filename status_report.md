@@ -36,6 +36,11 @@ Additional layer of virtualization called `System Virtualization` will be used i
 * Requires support from kernel of OS
 * Potential exposure of sensitive data during migartion
 
+## Threat Model
+###Risks Assesment:
+
+###Risks Mitigation:
+
 # In Scope
 * Support Ubuntu Linux 12.04 LTS
 * Support LXC Containers
@@ -48,6 +53,7 @@ Additional layer of virtualization called `System Virtualization` will be used i
 * Live migration between Cloud Providers
 * Support for other Linux Distributions
 * Support for other OS (FreeBSD, Solaris, Windows)
+* Secure migration of sensitive data
 
 # Project Milestones
 ## Completed:
@@ -62,6 +68,9 @@ Additional layer of virtualization called `System Virtualization` will be used i
 
 ## TODO:
 * Provide a CLI tool on top of the API
+
+# About The Author
+Software Development Engineer, with 5.5 years of experience in large multi-datacenter scale environments. 
 
 # References
 * [Currnt Project Home](https://github.com/lvsl/go-to)
