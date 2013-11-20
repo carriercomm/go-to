@@ -48,12 +48,14 @@ Additional layer of virtualization called `System Virtualization` will be used i
 * Use Docker for containers configuration
 * Provide tools to audit migration of a container
 * Provide tools to prevent exposure of sensitive data
+* Focus on IaaS model
 
 # Out of Scope
 * Live migration between Cloud Providers
 * Support for other Linux Distributions
 * Support for other OS (FreeBSD, Solaris, Windows)
 * Secure migration of sensitive data
+* PaaS Model
 
 # Project Milestones
 ## Completed:
