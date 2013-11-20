@@ -66,8 +66,10 @@ Additional layer of virtualization called `System Virtualization` will be used i
 * Provide script for configuration of Guest OS in VirtualBox, Amazon Ec2 and Windows Azure
 * Build API for every stage of the pipeline
 
-## TODO:
+## Planned:
 * Provide a CLI tool on top of the API
+* Add functionaly to track changes and API for auditing
+* Build mechanism to provide "air gap" for sensetive data
 
 # About The Author
 Software Development Engineer, with 5.5 years of experience in large multi-datacenter scale environments. 
