@@ -17,7 +17,7 @@ Develop a threat model, analyse related security risks and mitigation techniques
 
 # Success Criteria
 Functional and fully automated OS image migration pipeline with the following stages: Export, Transfer and Import.
-Sensitive data is sucured and not exposed during the migration.
+Sensitive data is secured and not exposed during the migration.
 All stages of pipeline are externally auditable.
 
 # Approach
