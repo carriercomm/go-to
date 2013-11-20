@@ -45,8 +45,9 @@ to guarantee Confidentiality, Integrity, and Availability (CIA) of data.
 * Deployment Model - Hybrid
 
 ###Risks Assessment:
-* Major risk - exposing sensitive data during migration of a container
+* Major risk - Exposing sensitive data during migration of a container
 * Major risk - Deploying container with malware from untrusted source
+* Minor risk - Intercept container during migration and inject malware
 
 ###Risks Mitigation:
 * Build "air gap" between container and sensitive data
