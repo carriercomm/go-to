@@ -37,9 +37,19 @@ Additional layer of virtualization called `System Virtualization` will be used i
 * Potential exposure of sensitive data during migration
 
 ## Security Aspects
+Security mechanisms should be integrated into the migration pipeline
+to guarantee Confidentiality, Integrity, and Availability (CIA) of data.
 ###Threat Model:
+* Service Model - IaaS
+* Deployment Model - Hybrid
 ###Risks Assessment:
+* Major risk - exposing sensitive data during migration of a container
+* Major risk - Deploying container with malware from untrusted source
 ###Risks Mitigation:
+* Build "air gap" between container and sensitive data
+* Encrypt sensistive data. Inject keys into trusted container to access encrypted data
+* Require authentication and authorization for activating any stage of the pipeline
+* Log every changes in the pipeline for later audit
 
 # In Scope
 * Support Ubuntu Linux 12.04 LTS
