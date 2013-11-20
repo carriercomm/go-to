@@ -13,7 +13,7 @@ The above issues cause a negative impact on availability of a Hybrid Cloud solut
 # Project Summary
 Provide an automated migration of an OS image between different Cloud Providers and development environment
 without any changes in migrating OS image format or configuration.
-Develop a threat model, analyse related secutiry risks and mitogation techniques
+Develop a threat model, analyse related security risks and mitigation techniques
 
 # Success Criteria
 Functional and fully automated OS image migration pipeline with the following stages: Export, Transfer and Import.
@@ -28,16 +28,16 @@ Additional layer of virtualization called `System Virtualization` will be used i
 * Atomicity of changes
 * Clear roll-back procedure
 * Simplicity: No need to maintain separate configuration per Cloud Provider
-* Ability to execute deep secutity analysis via monitoring container's activity
+* Ability to execute deep security analysis via monitoring container's activity
 * Control over consumed resources
 
 ###Cons:
 * General system overhead
 * Requires support from kernel of OS
-* Potential exposure of sensitive data during migartion
+* Potential exposure of sensitive data during migration
 
 ## Threat Model
-###Risks Assesment:
+###Risks Assessment:
 
 ###Risks Mitigation:
 
@@ -46,7 +46,7 @@ Additional layer of virtualization called `System Virtualization` will be used i
 * Support LXC Containers
 * Support Amazon Ec2 and Windows Azure Cloud Providers
 * Use Docker for containers configuration
-* Provide tools to audit migartion of a container
+* Provide tools to audit migration of a container
 * Provide tools to prevent exposure of sensitive data
 
 # Out of Scope
@@ -62,7 +62,7 @@ Additional layer of virtualization called `System Virtualization` will be used i
 * Verify the ability to set up container via Docker in VirualBox, Amazon EC2 and Windows Azure
 * Manually export container via Docker and import it in different Cloud Provider
 
-## In Progess:
+## In Progress:
 * Provide script for configuration of Guest OS in VirtualBox, Amazon Ec2 and Windows Azure
 * Build API for every stage of the pipeline
 
@@ -73,7 +73,7 @@ Additional layer of virtualization called `System Virtualization` will be used i
 Software Development Engineer, with 5.5 years of experience in large multi-datacenter scale environments. 
 
 # References
-* [Currnt Project Home](https://github.com/lvsl/go-to)
+* [Project Home](https://github.com/lvsl/go-to)
 * [Project Specification](https://github.com/lvsl/go-to/blob/master/SPEC.md)
 * [LXC](http://linuxcontainers.org/)
 * [Docker](https://www.docker.io/)
