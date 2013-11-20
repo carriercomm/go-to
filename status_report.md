@@ -84,3 +84,4 @@ Software Development Engineer, with 5.5 years of experience in large multi-datac
 * [Docker](https://www.docker.io/)
 * [Cgroups](https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt)
 * [The failure of operating systems and how we can fix it](http://lwn.net/Articles/524952/)
+* [CSA Guide v3.0](https://cloudsecurityalliance.org/guidance/csaguide.v3.0.pdf)
