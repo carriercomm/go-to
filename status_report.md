@@ -7,6 +7,7 @@ At the current moment there is no OS configuration and image format interoperabi
 This fact complicates maintenance of Hybrid Cloud deployments:
 * User must maintain separate OS configuration per Cloud Provider and for development environment
 * User is unable to migrate system to a different Cloud Provider for testing or evaluation
+
 The above issues cause a negative impact on availability of a Hybrid Cloud solution.
 
 # Project Summary
