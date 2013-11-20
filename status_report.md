@@ -13,7 +13,7 @@ The above issues cause a negative impact on availability of a Hybrid Cloud solut
 # Project Summary
 Provide an automated migration of an OS image between different Cloud Providers and development environment
 without any changes in migrating OS image format or configuration.
-Develop a threat model, analyze related secutiry risks and mitogation techniques
+Develop a threat model, analyse related secutiry risks and mitogation techniques
 
 # Success Criteria
 Functional and fully automated OS image migration pipeline with the following stages: Export, Transfer and Import.
