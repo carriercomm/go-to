@@ -3,7 +3,7 @@
 % November 17, 2013
 
 # Problem statement
-At the current moment there is no OS configuration interoperability between different Cloud Providers.
+At the current moment there is no OS image interoperability between different Cloud Providers.
 This fact complicates maintenance of Hybrid Cloud deployments
 in a way that one must maintain separate OS configuration
 per Cloud Provider and for development environment.
@@ -12,50 +12,35 @@ Also this issue causes a negative impact on availability of a Hybrid Cloud solut
 # Project Summary
 Provide an automated migration of an OS image between different Cloud Providers and development environment
 without any changes in migrating image.
+Develop a threat model, analyze related secutiry risks and mitogation techniques
 
 # Success Criteria
 Functional and fully automated OS image migration pipeline with the following stages: Export, Transfer and Import.
+Sensitive data is sucured and not exposed during the migration. All stages of pipeline are auditable.
 
-# Evaluating Approach
-There are two common approaches to maintain OS configuration consistency:
+# Approach
+Additional layer of virtualization called system virtualization will be used in this project to provide core functionality.
 
-1. Configuration system (CFEngine, Puppet or Cheff)
-2. Nested or System virtualization (Linux containers, FreeBSD Jails, Solaris Zones)
-
-The second approach is used in the current project.
-
-## Configuration System
-Pros:
-
-* OS and kernel agnostic (as long as configuration is provided)
-* Ability to deploy fine-grain changes in near real-time fashion
-* Parallelism & low network overhead. Every host is independent
-
-Cons:
-
-* Complexity: requires separate configuration for different cloud providers
-* Lack of atomicity. Provides no control over the configuration change execution
-* No clean roll-back procedure
-
-## Netsted Virtualization
-Pros:
-
+## Approach Evaluation
+###Pros:
 * Atomicity of changes
 * Clear roll-back procedure
-* Simplicity: No need to maintain separate configuration per Cloud Provider.
-* Ability to execute deep secutity analysis
+* Simplicity: No need to maintain separate configuration per Cloud Provider
+* Ability to execute deep secutity analysis via monitoring container's activity
 * Control over consumed resources
 
-Cons:
-
+###Cons:
 * General system overhead
-* Requires guest OS kernel support
+* Requires support from kernel of OS
+* Potential exposure of sensitive data during migartion
 
 # In Scope
-* Support Ubuntu 12.04
+* Support Ubuntu Linux 12.04 LTS
 * Support LXC Containers
 * Support Amazon Ec2 and Windows Azure Cloud Providers
 * Use Docker for containers configuration
+* Provide tools to audit migartion of a container
+* Provide tools to prevent exposure of sensitive data
 
 # Out of Scope
 * Live migration between Cloud Providers
@@ -77,11 +62,9 @@ Cons:
 * Provide a CLI tool on top of the API
 
 # References
-Below are the links to major components used in this project.
-
 * [Currnt Project Home](https://github.com/lvsl/go-to)
 * [Project Specification](https://github.com/lvsl/go-to/blob/master/SPEC.md)
 * [LXC](http://linuxcontainers.org/)
 * [Docker](https://www.docker.io/)
 * [Cgroups](https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt)
-
+* [The failure of operating systems and how we can fix it](http://lwn.net/Articles/524952/)
