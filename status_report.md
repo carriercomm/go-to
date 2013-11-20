@@ -3,23 +3,24 @@
 % November 17, 2013
 
 # Problem statement
-At the current moment there is no OS image interoperability between different Cloud Providers.
-This fact complicates maintenance of Hybrid Cloud deployments
-in a way that one must maintain separate OS configuration
-per Cloud Provider and for development environment.
-Also this issue causes a negative impact on availability of a Hybrid Cloud solution.
+At the current moment there is no OS configuration and image format interoperability between different Cloud Providers.
+This fact complicates maintenance of Hybrid Cloud deployments:
+* User must maintain separate OS configuration per Cloud Provider and for development environment
+* User is unable to migrate system to a different Cloud Provider for testing or evaluation
+The above issues cause a negative impact on availability of a Hybrid Cloud solution.
 
 # Project Summary
 Provide an automated migration of an OS image between different Cloud Providers and development environment
-without any changes in migrating image.
+without any changes in migrating OS image format or configuration.
 Develop a threat model, analyze related secutiry risks and mitogation techniques
 
 # Success Criteria
 Functional and fully automated OS image migration pipeline with the following stages: Export, Transfer and Import.
-Sensitive data is sucured and not exposed during the migration. All stages of pipeline are auditable.
+Sensitive data is sucured and not exposed during the migration.
+All stages of pipeline are externally auditable.
 
 # Approach
-Additional layer of virtualization called system virtualization will be used in this project to provide core functionality.
+Additional layer of virtualization called `System Virtualization` will be used in this project to provide core functionality.
 
 ## Approach Evaluation
 ###Pros:
