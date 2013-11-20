@@ -36,9 +36,9 @@ Additional layer of virtualization called `System Virtualization` will be used i
 * Requires support from kernel of OS
 * Potential exposure of sensitive data during migration
 
-## Threat Model
+## Security Aspects
+###Threat Model:
 ###Risks Assessment:
-
 ###Risks Mitigation:
 
 # In Scope
