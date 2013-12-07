@@ -69,6 +69,9 @@ This guide is partially based on official Docker guide: http://docs.docker.io/en
 
 #Appendix C: Go-To API Reference
 
-Go-To provides a REST API to the pipeline of containers. All API calls executed via Go-To Agent. Where applicable API supports both synchronous and asynchronous mode.
+Go-To provides a REST API to the pipeline of containers. All API calls are executed via Go-To Agent. Where applicable API supports both synchronous and asynchronous mode.
 
+__Terminology__
+  * The Go-To Agent is a background process(daemon) which runs under priviledged user (root)
+  * The Go-To Pipeline is a set of all containers on the host with their metadata and statistics
 
