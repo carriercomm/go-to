@@ -39,7 +39,9 @@ __Configuring Vagrant to run Docker-0.7.1__
     
     # Start VM and SSH to it
     vagrant up
-    vagrant ssh
+    vagrant ssh # <-- this command will bring you to VM shell
+    
+    # !!! COMMANDS BELOW ARE EXECUTED IN VM !!!
     
     # Enable swap limit support. This is not enabled by default.
     sudo sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"/' /etc/default/grub
