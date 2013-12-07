@@ -53,7 +53,6 @@ __Configuring Vagrant to run Docker-0.7.1__
     sudo docker info
     
     # Output should look like this:
-    vagrant@precise64:~$ sudo docker info
     Containers: 0
     Images: 0
     Driver: aufs
