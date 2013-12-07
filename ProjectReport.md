@@ -11,10 +11,12 @@
 
 #Appendix A: Setting up a local environmenrt
 
+*The following guide is for Unix-like OS types.*
+
 VirtualBox used as a local virtual development environment.
 Vagrant used to orchestrate configuration of VMs.
 
-Follow these steps to complete the setup. This guide only for Unix-like OS types.
+Follow these steps to complete the setup.
 
 __Install VirtualBox-4.3.4__
 
@@ -39,7 +41,8 @@ __Configuring Vagrant to run Docker-0.7.1__
     vagrant up
     vagrant ssh
     
-
+    # start Docker
+    sudo docker
 
 #Appendix B: Setting up public cloud infrastructure
 
