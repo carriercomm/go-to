@@ -68,3 +68,7 @@ This guide is partially based on official Docker guide: http://docs.docker.io/en
 #Appendix B: Setting up public cloud infrastructure
 
 #Appendix C: Go-To API Reference
+
+Go-To provides a REST API to the pipeline of containers. All API calls executed via Go-To Agent. Where applicable API supports both synchronous and asynchronous mode.
+
+
