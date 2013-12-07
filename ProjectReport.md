@@ -59,6 +59,9 @@ __Configuring Vagrant to run Docker-0.7.1__
     Driver: aufs
     Root Dir: /var/lib/docker/aufs
     Dirs: 0
+    
+    # Congratulations! Your VM is configured to run containers. Exit the VM shell
+    exit 
 
 This guide is partially based on official Docker guide: http://docs.docker.io/en/latest/installation/
 
