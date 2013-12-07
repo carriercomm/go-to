@@ -41,8 +41,24 @@ __Configuring Vagrant to run Docker-0.7.1__
     vagrant up
     vagrant ssh
     
-    # start Docker
-    sudo docker
+    # Enable swap limit support
+    # http://docs.docker.io/en/latest/installation/kernel/#memory-and-swap-accounting-on-debian-ubuntu
+    sudo sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"/' /etc/default/grub
+    
+    # Activate changes
+    sudo update-grub
+    sudo reboot
+    
+    # Check Docker status
+    sudo docker info
+    
+    # Output should look like this:
+    vagrant@precise64:~$ sudo docker info
+    Containers: 0
+    Images: 0
+    Driver: aufs
+    Root Dir: /var/lib/docker/aufs
+    Dirs: 0
 
 #Appendix B: Setting up public cloud infrastructure
 
