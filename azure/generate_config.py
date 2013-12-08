@@ -67,8 +67,6 @@ def main(subscription_id, cert_path, config_path):
     generate_client_cert(pem)
     generate_server_cert(pem, cer)
 
-    sys.stderr.write("!!! Uplaod this cert to Azure: {}\n".format(cer))
-
     config = {}
     config['subscription_id'] = subscription_id
     config['certificate_path'] = pem
