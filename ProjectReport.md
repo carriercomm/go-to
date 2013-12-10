@@ -67,6 +67,11 @@ This guide is partially based on official Docker guide: http://docs.docker.io/en
 
 #Appendix B: Setting up public cloud infrastructure
 
+*Amazon Ec2 and Windows Azure are covered in this guide.*
+
+__Creating VM instance__
+
+
 #Appendix C: Go-To API Reference
 
 Go-To provides a REST API to the pipeline of containers. All API calls are executed via Go-To Agent. Where applicable API supports both synchronous and asynchronous mode.
