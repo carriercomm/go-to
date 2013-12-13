@@ -1,13 +1,26 @@
-#I. Project Summamry
+#Project Summamry
 
-#II. Design
+#Design
 ## Evaluating options
-## Pros
-## Cons
+### Pros
+### Cons
+## Choosen design
+### Why?
 
-#II. Implementation
+#Implementation of Private Cloud
 ## Challenges
 ## Out of Scope
+
+#Provisioning of Public Cloud
+##Taken steps
+##Monitoring options
+
+#Implementation of Hybrid Cloud
+## Migration
+## Network Features
+
+# Demonstration of dynamic characteristics
+## Migration
 
 #Appendix A: Setting up a local environmenrt
 
