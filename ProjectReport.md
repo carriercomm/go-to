@@ -121,6 +121,10 @@ http://marceloneves.org/papers/pdp2013-containers.pdf
 Menage, Paul B. "Adding generic process containers to the linux kernel." Linux Symposium. 2007.
 http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.111.798&rep=rep1&type=pdf#page=45
 
+Xavier, Miguel G., et al. "Performance Evaluation of Container-based Virtualization for High Performance Computing Environments." Parallel, Distributed and Network-Based Processing (PDP), 2013 21st Euromicro International Conference on. IEEE, 2013.
+
+Shea, Ryan, and Jiangchuan Liu. "Performance of Virtual Machines Under Networked Denial of Service Attacks: Experiments and Analysis." (2013): 1-1.
+
 
 
 
