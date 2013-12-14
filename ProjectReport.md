@@ -4,7 +4,7 @@
 
 #Project Summary
 ## Problem Statement
-Different Public Cloud Providers have different and not interoperable format of OS images.
+Different Public Cloud Providers have different and not interoperable configuration and format of Guest OS images.
 This cause a “Vendor Lock-in” effect.
 
 For example.
@@ -13,11 +13,11 @@ After performing a snapshot of a live system it's not possible to resume this im
 provider or in your local environemt.
 The image will not boot unless you use the same hypervisor with identical configuration.
 
-Which is a potential risk for every business operating in the Public Cloud at IaaS level.
+It is a potential risk for every business operating in the Public Cloud at IaaS level.
 For Hybrid Cloud deployments the above aspect causes an operational complexity.
-An owner of a hybrid setup must maintain separate OS configuration for it's Privete and Public parts infrastructure.
-In critical scenarios such as a company or organization required to switch from one Public Cloud provider to another.
-Time and engeneering effort should be spent to create a new configuration and deplyments for a new cloud infrastructure.
+An owner of a hybrid setup must maintain separate OS configuration for it's Privete and Public parts of infrastructure.
+In critical scenarios such as a company or organization required to switch from one Public Cloud provider to another
+time and engeneering effort should be spent to create a new configuration and deployments for a new cloud infrastructure.
 
 ## Projec Goal
 Provide an automated migration pipeline for OS images between different Cloud Providers.
