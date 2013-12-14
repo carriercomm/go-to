@@ -18,13 +18,16 @@ Develop a threat model, analyze related security risks and mitigation techniques
 
 ## In Scope
 As Public Cloud providers Amazon AWS and Windows Azure are used.
-Only Linux will evaluated in this project.
+
+Ubuntu Linux 12.04 LTS is used in this project.
+This OS version is most widly used and available from all Public Cloud Providers.
 
 #Design
 ## Evaluating options
 Historicall two main approached applied to provide reprodusable and consistent configuration of OS:
 * Configuration Managment Systems
-* Virtualization
+* Hardware Virtualization
+* System Virtualization
 
 Below is a comparison of Pros and Cons of both approaches.
 
@@ -73,9 +76,10 @@ In System virtualization, every application or a group of applocations is isolat
 ### Why?
 
 #Implementation of Private Cloud
-*The following guide is for Unix-like OS types.*
 
-VirtualBox used as a local virtual development environment.
+Because the project doesn't require sepaearte Private Cloud infrastrucure to build a Hybrid Solution.
+VirtualBox is used as a delelopment platform to "ineject" initial containers in the Hybrid Solution (Amazon AWS Ec2 + Windows Azure VM)
+
 Vagrant used to orchestrate configuration of VMs.
 
 Follow these steps to complete the setup.
