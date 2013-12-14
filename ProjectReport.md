@@ -84,6 +84,21 @@ The above setup was tested on MacOSX 10.8.5
 ## Migration
   
 # References
+## Web resources
 http://michaelwasham.com/2013/09/03/connecting-clouds-site-to-site-aws-azure/
+http://blog.docker.io/2013/08/containers-docker-how-secure-are-they/
+https://wiki.ubuntu.com/LxcSecurity
+http://www.ibm.com/developerworks/linux/library/l-lxc-security/index.html
+http://marceloneves.org/papers/pdp2013-containers.pdf
+https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt
+http://stackoverflow.com/questions/17989306/what-does-docker-add-to-just-plain-lxc
+http://marceloneves.org/papers/pdp2013-containers.pdf
+
+##Papers
+Menage, Paul B. "Adding generic process containers to the linux kernel." Linux Symposium. 2007.
+http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.111.798&rep=rep1&type=pdf#page=45
+
+
+
 
 
