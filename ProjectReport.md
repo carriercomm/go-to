@@ -16,6 +16,11 @@
 ##Monitoring options
 
 #Implementation of Hybrid Cloud
+![Architecture Overview](HybridCloudOverview.png)
+
+## Go-To Stack
+![Go-To Stack](GoToStack.png)
+
 ## Migration
 ## Network Features
 
