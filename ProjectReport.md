@@ -2,7 +2,7 @@
 % Leonid Vasilyev, <Leonid.Vasilyev@student.ncirl.ie>
 % December 13, 2013
 
-#Project Summamry
+#Project Summary
 ## Problem Statement
 Different Public Cloud Providers have different and not interoperable format of OS images.
 This cause a “Vendor Lock-in” effect.
@@ -25,6 +25,7 @@ This OS version is most widly used and available from all Public Cloud Providers
 #Design
 ## Evaluating options
 Historicall two main approached applied to provide reprodusable and consistent configuration of OS:
+
 * Configuration Managment Systems
 * Hardware Virtualization
 * System Virtualization
@@ -77,7 +78,16 @@ In System virtualization, every application or a group of applocations is isolat
 - No live migration. Before creatign a shanpshot all processes should be freezed in a container. There is some onging development in this area.
 
 ## Choosen design
-### Why?
+The System Virtualization approach was choosen for this project because of the combination of combination of folling characteristincs:
+
+* Low overheaed. Compared to full hardware virtualization
+* Atomicity of changes. Unlike Configuration Managment systems.
+* Snapshotting & migration support.
+  Container is just a directory on disc and can ve streamed over the network easily.
+
+In fact, all three approached described above may complement each other.
+In the cloud environemt hardware virtialization is always used and mandatory.
+Configuration systems still can be used in a limited fashing to synchronize configuration files and apply changesa and patched to parent system (i.e. the system on top of which containers are run)
 
 #Implementation of Private Cloud
 
