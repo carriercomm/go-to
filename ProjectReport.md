@@ -33,6 +33,7 @@ Below is a comparison of Pros and Cons of both approaches.
 
 ###Configuration Managment Systems
 These systemes began to appear in mid 90-x. CFEngine, Puppet and Cheff are most widely used today.
+
 ####Pros
 - Zero overhead. All changes are applied to OS directly as soon as possible.
 
@@ -53,14 +54,17 @@ These systemes began to appear in mid 90-x. CFEngine, Puppet and Cheff are most 
 - Additional software is required to operate on a target system, usually it's a background process running under privilidged uses. Which causes a security risk.
 
 ###Hardware Virtualization
+
 ####Pros
 - Live migration. It's possible to perform a lize migration of the system by suspending it's state
+
 ####Cons
 - High overhead. Unless paravirtualized every subsystem has a degraded performance
 - Nested virtualization is not possible. Only Linux KVM support nested virtualization. 
 
 ###System Virtualization
 In System virtualization, every application or a group of applocations is isolated from each other but running in the same kernel. 
+
 ####Pros
 - It's possible to use it on top of hardware virtualization
 - Changes to the system are atomic
@@ -162,10 +166,10 @@ http://docs.vagrantup.com/v2/provisioning/basic_usage.html
 
 #Implementation of Hybrid Cloud
 ##Architecture Overview
-!["Architecture Overview"](HybridCloudOverview.png)
+!["Architecture Overview"](HybridCloudOverview.jpg)
 
 ## Go-To Stack
-!["Go-To Stack"](GoToStack.png)
+!["Go-To Stack"](GoToStack.jpg)
 
 ## Migration
 
