@@ -5,23 +5,22 @@
 #Project Summary
 ## Problem Statement
 Different Public Cloud Providers have different and not interoperable configuration and format of Guest OS images.
-This cause a “Vendor Lock-in” effect.
+This causes a “Vendor Lock-in” effect.
 
-For example.
 In case of linux system configuration of Guest OS is different for Amazon Ec2 and Windows Azure.
 After performing a snapshot of a live system it's not possible to resume this image in different cloud
-provider or in your local environemt.
+provider or in your local environment.
 The image will not boot unless you use the same hypervisor with identical configuration.
 
 It is a potential risk for every business operating in the Public Cloud at IaaS level.
 For Hybrid Cloud deployments the above aspect causes an operational complexity.
-An owner of a hybrid setup must maintain separate OS configuration for it's Privete and Public parts of infrastructure.
+An owner of a hybrid setup must maintain separate OS configuration for its Private and Public parts of infrastructure.
 In critical scenarios such as a company or organization required to switch from one Public Cloud provider to another
-time and engeneering effort should be spent to create a new configuration and deployments for a new cloud infrastructure.
+time and engineering effort should be spent to create a new configuration and deployments for a new cloud infrastructure.
 
-## Projec Goal
+## Project Goal
 Provide an automated migration pipeline for OS images between different Cloud Providers.
-Develop a threat model, analyze related security risks and mitigation techniques.
+Develop a threat model, analyse related security risks and mitigation techniques.
 
 ## In Scope
 
@@ -29,80 +28,80 @@ Develop a threat model, analyze related security risks and mitigation techniques
 * Ubuntu Linux 12.04 LTS is used in this project as a Guest OS
 * Vagrant on top of VirtualBox is used as a local Private Cloud
 * Docker is used to manage Linux Containers in the Guest OS
-* VPN tunnel between Cloud Providers is used to transers OS images.
+* VPN tunnel between Cloud Providers is used to transfer OS images.
 
 
 #Design
 ## Evaluating options
-Historicall two main approached applied to provide reprodusable and consistent configuration of OS:
+Historically two main approached applied to provide reproducible and consistent configuration of OS:
 
-* Configuration Managment Systems
+* Configuration Management Systems
 * Hardware Virtualization
 * System Virtualization
 
 Below is a comparison of Pros and Cons of both approaches.
 
-###Configuration Managment Systems
-These systemes began to appear in mid 90-x. CFEngine, Puppet and Cheff are most widely used today.
+###Configuration Management Systems
+These systems began to appear in mid 90-x. CFEngine, Puppet and Cheff are most widely used today.
 
 ####Pros
 - Zero overhead. All changes are applied to OS directly as soon as possible.
 
 - Ability to apply fine grained changes to live system without stopping a service.
 
-- Domain Specific Languages (DSL) are used for configuraton. Which allow a great degree of flexibility.
+- Domain Specific Languages (DSL) are used for configuration. Which allow a great degree of flexibility.
 
 ####Cons
 - System configuration is performed via a large amount of small iterative changes.
-  The system is "eventually" be is a desired state.
+  The system is "eventually" transformed into a desired state.
 
 - Changes are not atomic. If system is restarted on the middle of applying change process. There is no guarantee that configuration of system will be resumed from last point
 
-- Lack of built-in checkpointing. Althow it's possible with some file-system performed on-line backups.
+- Lack of built-in check pointing. Although it's possible with some file-system performed on-line backups.
 
 - No clean roll-back procedure. Roll-back is add hoc usually done via executing different set of commands on the system
 
-- Additional software is required to operate on a target system, usually it's a background process running under privilidged uses. Which causes a security risk.
+- Additional software is required to operate on a target system; usually it's a background process running under privileged uses. Which causes a security risk.
 
 ###Hardware Virtualization
 
 ####Pros
-- Live migration. It's possible to perform a lize migration of the system by suspending it's state
+- Live migration. It's possible to perform a live migration of the system by suspending it's state
 
 ####Cons
 - High overhead. Unless paravirtualized every subsystem has a degraded performance
 - Nested virtualization is not possible. Only Linux KVM support nested virtualization. 
 
 ###System Virtualization
-In System virtualization, every application or a group of applocations is isolated from each other but running in the same kernel. 
+In System virtualization, every application or a group of applications is isolated from each other but running in the same kernel. 
 
 ####Pros
 - It's possible to use it on top of hardware virtualization
 - Changes to the system are atomic
-- Cleam rollback. Just revert to the revious version of a container
+- Clean rollback. Just revert to the previous version of a container
 - It's possible to run multiple versions of the same container on the system
-- Low overhead abstration.
-  All abstration is done in a kernel by settings attributes to different internal data-structures.
+- Low overhead abstraction.
+  All functionality is implemented in a kernel by settings attributes to different internal data-structures.
 
 ####Cons
-- No live migration. Before creatign a shanpshot all processes should be freezed in a container. There is some onging development in this area.
+- No live migration. Before creating a snapshot all processes should be in running container must be frozen. There is some on-going development in this area.
 
-## Choosen design
-The System Virtualization approach was choosen for this project because of the combination of combination of folling characteristincs:
+## Chosen design
+The System Virtualization approach was chosen for this project because of the combination of combination of the following characteristics:
 
-* Low overheaed. Compared to full hardware virtualization
-* Atomicity of changes. Unlike Configuration Managment systems.
+* Low over-heaed. Compared to full hardware virtualization
+* Atomicity of changes. Unlike Configuration Management systems.
 * Snapshotting & migration support.
   Container is just a directory on disc and can ve streamed over the network easily.
 
 In fact, all three approached described above may complement each other.
-In the cloud environemt hardware virtialization is always used and mandatory.
-Configuration systems still can be used in a limited fashing to synchronize configuration files and apply changesa and patched to parent system (i.e. the system on top of which containers are run)
+In the cloud environment hardware virtualization is always used and mandatory.
+Configuration systems still can be used in a limited fashion to synchronize configuration files and apply changes and patches to a parent system (i.e. the system on top of which containers are run)
 
 #Implementation of Private Cloud
 
-Because the project doesn't require separate Private Cloud infrastrucure to build a Hybrid Solution.
-VirtualBox is used as a delelopment platform to "ineject" initial containers in the Hybrid Solution (Amazon AWS Ec2 + Windows Azure VM)
+Because the project doesn't require separate Private Cloud infrastructure to build a Hybrid Solution.
+VirtualBox is used as a development platform to "inject" initial containers in the Hybrid Solution (Amazon AWS Ec2 + Windows Azure VM)
 
 Vagrant is used to orchestrate configuration of VMs.
 Vagrant provides a rich API for configuring and automatically provisioning VMs.
@@ -113,14 +112,14 @@ It provides similar configuration language via `Dockerfile` and provided an API 
 LXC toolkit – which is a low-level API for creating containers.
 
 Using `Vagrant` and `Docker` significantly simply and reduce time for a setup.
-As well as provide reproduceble set up.
+As well as provide reproducible set up.
 
 ##Detailed steps to set up development environment
 
 __Install VirtualBox-4.3.4__
 
   * Download package for your OS from <http://download.virtualbox.org/virtualbox/4.3.4/>
-  * Follow instruction for yous OS to install: <https://www.virtualbox.org/manual/ch02.html>
+  * Follow instruction for your OS to install: <https://www.virtualbox.org/manual/ch02.html>
 
 __Installing Vagrant-1.3.5__
 
@@ -189,34 +188,35 @@ Link these two networks via a VPN tunnel.
 
 ##Taken steps to set up instances
 
-Source code of scripts to automate instance creation are provided in Appendix A and Appendix B.
+Source code of scripts to automate instance creation is provided in Appendix A and Appendix B.
 
 Main findings:
-### Amazon Ec2
-* The process is well documented and there a lot of examples avaiable for different automation options.
 
-* When working under particular IAM used under one account it's possible to acces credentials and keys of other IAM users.
+### Amazon Ec2
+* The process is well documented and there a lot of examples available for different automation options.
+
+* When working under particular IAM used under one account it's possible to access credentials and keys of other IAM users.
   Which is a potential security risk.
 
-* Certificates must be uploaded in every region endpoints serapatly. This complicates the setup in multi-region environments.
+* Certificates must be uploaded in every region endpoints separately. This complicates the setup in multi-region environments.
 
 ### Windows Azure
 * Lack of examples on how automatically provision an instance with a linux OS.
 
 * The Python client API provided by Microsoft is very poorly documented in incomplete.
-  Some API calls are missing. Some are completly undocumented.
+  Some API calls are missing. Some are completely undocumented.
 
 * Support for linux Guest OS is redementary.
   I was unable to find a way to upload an SSH certificate instead of using plain text passwords in my script.
 
-* Some limits are non-practical. For example: It's only possible to upload 10 managment certificates per cloud service.
+* Some limits are non-practical. For example: It's only possible to upload 10 management certificates per cloud service.
 
 ##Monitoring options
 ### Amazon AWS
 * Amazon has feature rich monitoring service – CloudWatch. It possible to emit custom metrics to Cloud Watch and build alarming or trigger scaling on top of there metrics.
 
 * Very important feature of CloudWatch is support for backfilling of metrics.
-  CloudWatch honors the timestamp which provided during the API Call PutMetrics:
+  CloudWatch honours the timestamp which provided during the API Call PutMetrics:
   <http://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_PutMetricData.html>.
   This enabled consistent stream fo metrics without gaps.
 
@@ -224,7 +224,7 @@ Main findings:
 
 #### Windows Azure
 
-* Built-in monitoring into CLoud Service
+* Built-in monitoring into Cloud Service
 
 * Documentation is Windows specific. API not exposed and documented in Python Client
 
@@ -241,7 +241,7 @@ between cloud providers over secure VPN tunnel.
 !["Architecture Overview"](HybridCloudOverview.jpg)
 
 ## Go-To Stack
-Go-To rely on Docker as a way to communicate with containers. And on APIs for cloud provider to communicate with it's services.
+Go-To relies on Docker as a way to communicate with containers. And on APIs for cloud provider to communicate with it's services.
 !["Go-To Stack"](GoToStack.jpg)
 
 ###Go-To CLI options
@@ -260,7 +260,7 @@ Go-To rely on Docker as a way to communicate with containers. And on APIs for cl
 ## Migration
 
 ## Network Features
-VPN tunnel betweem Amazon Ec2 and Windows Azure is used to communicate.
+VPN tunnel between Amazon Ec2 and Windows Azure is used to communicate.
 
 # Demonstration of dynamic characteristics
 ## Migration
@@ -562,7 +562,7 @@ Shea, Ryan, and Jiangchuan Liu. "Performance of Virtual Machines Under Networked
         main(*sys.argv[1:])
 
 
-#Appndix B: Scripts to automate creting and configuration of Windows Azure
+#Appndix B: Scripts to automate creating and configuration of Windows Azure
 
 ## generate_config.py: Generate configuration
 
