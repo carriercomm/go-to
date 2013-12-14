@@ -92,4 +92,9 @@ Go-To provides a REST API to the pipeline of containers. All API calls are execu
 __Terminology__
   * The Go-To Agent is a background process(daemon) which runs under priviledged user (root)
   * The Go-To Pipeline is a set of all containers on the host with their metadata and statistics
+  
+  
+# References
+http://michaelwasham.com/2013/09/03/connecting-clouds-site-to-site-aws-azure/
+
 
