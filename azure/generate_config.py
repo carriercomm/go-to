@@ -24,12 +24,8 @@ def generate_server_cert(pem, cer):
     cmd = [
         "openssl",
         "x509",
-        "-inform",
-        "pem",
         "-in",
         pem,
-        "-outform",
-        "der",
         "-out",
         cer,
     ]
@@ -57,27 +53,41 @@ def generate_client_cert(pem):
     subprocess.check_call(" ".join(cmd), shell=True)
 
 
-def main(subscription_id, cert_path, config_path):
+def get_public_key(cer, pubkey):
+    cmd = "openssl x509 -in " + cer + " -pubkey -noout"
+
+    subprocess.check_call(cmd, stdout=open(pubkey, "wb"), shell=True)
+
+
+def main(subscription_id, api_cert_path, cert_path, config_path):
+    api_cert_path = os.path.abspath(api_cert_path)
+    cert_path = os.path.abspath(cert_path)
+    config_path = os.path.abspath(config_path) 
+
     if os.path.exists(config_path):
         raise ValueError("{} exists".format(config_path))
 
     cer = cert_path + ".cer"
     pem = cert_path + ".pem"
+    pubkey = cert_path + ".pk"
 
     generate_client_cert(pem)
     generate_server_cert(pem, cer)
+    get_public_key(cer, pubkey)
 
     config = {}
     config['subscription_id'] = subscription_id
-    config['certificate_path'] = pem
+    config['api_certificate_path'] = api_cert_path
+    config['certificate_path'] = cer
+    config['certificate_pubkey'] = pubkey
 
     with open(config_path, "w") as f:
         json.dump(config, f, indent=4)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
+    if len(sys.argv) != 5:
         sys.stderr.write(
-            "Usage: {} <subscription_id> <cert_path> <config-name.json>\n".format(sys.argv[0]))
+            "Usage: {} <subscription_id> <api_cert_path> <cert_path> <config-name.json>\n".format(sys.argv[0]))
         sys.exit(1)
-    main(sys.argv[1], sys.argv[2], sys.argv[3])
+    main(*sys.argv[1:])
