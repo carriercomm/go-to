@@ -14,7 +14,7 @@ Time and engeneering effort should be spent to create a new configuration and de
 
 ## Projec Goal
 Provide an automated migration pipeline for OS images between different Cloud Providers.
-Develop a threat model, analyse related security risks and mitigation techniques.
+Develop a threat model, analyze related security risks and mitigation techniques.
 
 ## In Scope
 As Public Cloud providers Amazon AWS and Windows Azure are used.
@@ -22,8 +22,36 @@ Only Linux will evaluated in this project.
 
 #Design
 ## Evaluating options
-### Pros
-### Cons
+Historicall two main approached applied to provide reprodusable and consistent configuration of OS:
+* Configuration Managment Systems
+* Virtualization
+
+Below is a comparison of Pros and Cons of both approaches.
+
+###Configuration Managment Systems
+####Pros
+- Zero overhead. All changes are applied to OS directly as soon as possible.
+
+- Ability to apply fine grained changes to live system without stopping a service.
+
+- Domain Specific Languages (DSL) are used for configuraton. Which allow a great degree of flexibility.
+
+####Cons
+- System configuration is performed via a large amount of small iterative changes.
+  The system is "eventually" be is a desired state.
+
+- Changes are not atomic. If system is restarted on the middle of applying change process. There is no guarantee that configuration of system will be resumed from last point
+
+- Lack of built-in checkpointing. Althow it's possible with some file-system performed on-line backups.
+
+- No clean roll-back procedure. Roll-back is add hoc usually done via executing different set of commands on the system
+
+- Additional software is required to operate on a target system, usually it's a background process running under privilidged uses. Which causes a security risk.
+
+###Virtualization
+####Pros
+####Cons
+
 ## Choosen design
 ### Why?
 
