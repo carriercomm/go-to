@@ -162,10 +162,10 @@ http://docs.vagrantup.com/v2/provisioning/basic_usage.html
 
 #Implementation of Hybrid Cloud
 ##Architecture Overview
-![Architecture Overview](HybridCloudOverview.png)
+<img alt="Architecture Overview" width="70%" src="HybridCloudOverview.png">
 
 ## Go-To Stack
-![Go-To Stack](GoToStack.png)
+<img alt="Go-To Stack" width="70%" src="GoToStack.png">
 
 ## Migration
 
