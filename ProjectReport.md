@@ -119,12 +119,12 @@ As well as provide reproduceble set up.
 
 __Install VirtualBox-4.3.4__
 
-  * Download package for your OS from http://download.virtualbox.org/virtualbox/4.3.4/
-  * Follow instruction for yous OS to install: https://www.virtualbox.org/manual/ch02.html
+  * Download package for your OS from <http://download.virtualbox.org/virtualbox/4.3.4/>
+  * Follow instruction for yous OS to install: <https://www.virtualbox.org/manual/ch02.html>
 
 __Installing Vagrant-1.3.5__
 
-  * Download and execute package for your OS from http://downloads.vagrantup.com/tags/v1.3.5
+  * Download and execute package for your OS from <http://downloads.vagrantup.com/tags/v1.3.5>
 
 __Configuring Vagrant to run Docker-0.7.1__ 
 
@@ -150,7 +150,8 @@ Commands below are executed in VM shell.
 Enable swap limit support. This is not enabled by default.
 
     sudo sed -i \
-    's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"/' \
+    's/GRUB_CMDLINE_LINUX="\
+    "/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"/' \
     /etc/default/grub
     
 Activate changes
@@ -177,7 +178,7 @@ VM is configured to run containers. Exit the VM shell
 ## Out of Scope
 The above setup was only tested on MacOSX 10.8.5.
 The above setup can be automated via Vagrant Provisioning API:
-http://docs.vagrantup.com/v2/provisioning/basic_usage.html
+<http://docs.vagrantup.com/v2/provisioning/basic_usage.html>
 
 
 #Provisioning of Public Cloud
@@ -200,27 +201,26 @@ http://docs.vagrantup.com/v2/provisioning/basic_usage.html
   
 # References
 ## Web resources
-http://lwn.net/Articles/524952/
+<http://lwn.net/Articles/524952/>
 
-http://michaelwasham.com/2013/09/03/connecting-clouds-site-to-site-aws-azure/
+<http://michaelwasham.com/2013/09/03/connecting-clouds-site-to-site-aws-azure/>
 
-http://blog.docker.io/2013/08/containers-docker-how-secure-are-they/
+<http://blog.docker.io/2013/08/containers-docker-how-secure-are-they/>
 
-https://wiki.ubuntu.com/LxcSecurity
+<https://wiki.ubuntu.com/LxcSecurity>
 
-http://www.ibm.com/developerworks/linux/library/l-lxc-security/index.html
+<http://www.ibm.com/developerworks/linux/library/l-lxc-security/index.html>
 
-http://marceloneves.org/papers/pdp2013-containers.pdf
+<http://marceloneves.org/papers/pdp2013-containers.pdf>
 
-https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt
+<https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt>
 
-http://stackoverflow.com/questions/17989306/what-does-docker-add-to-just-plain-lxc
+<http://stackoverflow.com/questions/17989306/what-does-docker-add-to-just-plain-lxc>
 
-http://marceloneves.org/papers/pdp2013-containers.pdf
+<http://marceloneves.org/papers/pdp2013-containers.pdf>
 
 ##Papers
 Menage, Paul B. "Adding generic process containers to the linux kernel." Linux Symposium. 2007.
-http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.111.798&rep=rep1&type=pdf#page=45
 
 Xavier, Miguel G., et al. "Performance Evaluation of Container-based Virtualization for High Performance Computing Environments." Parallel, Distributed and Network-Based Processing (PDP), 2013 21st Euromicro International Conference on. IEEE, 2013.
 
