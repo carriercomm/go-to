@@ -1,5 +1,20 @@
-#Project Summamry
+% Go-To: Cloud Provider agnostic OS image migration pipeline
+% Leonid Vasilyev, <Leonid.Vasilyev@student.ncirl.ie>
+% December 13, 2013
 
+#Project Summamry
+## Problem Statement
+Different Public Cloud Providers have different and not interoperable format of OS images.
+This cause a “Vendor Lock-in” effect.
+Which is a potential risk for every business operating in the Public Cloud at IaaS level.
+
+## Projec Goal
+Provide an automated migration pipeline for OS images between different Cloud Providers.
+Develop a threat model, analyse related security risks and mitigation techniques.
+
+## In Scope
+As a Public Cloud providers Amazon AWS and Windows Azure are used.
+Only Linux will evaluated in this project.
 
 #Design
 ## Evaluating options
