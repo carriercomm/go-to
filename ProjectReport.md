@@ -95,41 +95,46 @@ __Installing Vagrant-1.3.5__
 
 __Configuring Vagrant to run Docker-0.7.1__ 
 
-    # this directory will only keep configuration for Vagrant. Image data stred separately
     export GOTO_WORKSPACE=$(pwd)/$USER-goto-workspace
     mkdir $GOTO_WORKSPACE
     cd $GOTO_WORKSPACE
     
-    # Docker provided pre configuration for Vagrant
+Docker provided pre configuration for Vagrant
     wget --no-check-certificate "https://github.com/dotcloud/docker/raw/v0.7.1/Vagrantfile" -O Vagrantfile
     
-    # Start VM and SSH to it
+Start VM and SSH to it
+
     vagrant up
-    vagrant ssh # <-- this command will bring you to VM shell
+    vagrant ssh
     
-    # !!! COMMANDS BELOW ARE EXECUTED IN VM !!!
+This command will bring you to VM shell
     
-    # Enable swap limit support. This is not enabled by default.
+Commands below are executed in VM shell.
+
+Enable swap limit support. This is not enabled by default.
+
     sudo sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"/' /etc/default/grub
     
-    # Activate changes
+Activate changes
+
     sudo update-grub
     sudo reboot
     
-    # Check Docker status
+Check Docker status
+
     sudo docker info
     
-    # Output should look like this:
+Output should look like this:
+
     Containers: 0
     Images: 0
     Driver: aufs
     Root Dir: /var/lib/docker/aufs
     Dirs: 0
     
-    # Congratulations! Your VM is configured to run containers. Exit the VM shell
-    exit 
+VM is configured to run containers. Exit the VM shell
 
-This guide is partially based on official Docker guide: http://docs.docker.io/en/latest/installation/
+    exit 
 
 ## Out of Scope
 The above setup was tested on MacOSX 10.8.5
