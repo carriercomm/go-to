@@ -8,27 +8,6 @@
 ### Why?
 
 #Implementation of Private Cloud
-## Challenges
-## Out of Scope
-
-#Provisioning of Public Cloud
-##Taken steps
-##Monitoring options
-
-#Implementation of Hybrid Cloud
-![Architecture Overview](HybridCloudOverview.png)
-
-## Go-To Stack
-![Go-To Stack](GoToStack.png)
-
-## Migration
-## Network Features
-
-# Demonstration of dynamic characteristics
-## Migration
-
-#Appendix A: Setting up a local environmenrt
-
 *The following guide is for Unix-like OS types.*
 
 VirtualBox used as a local virtual development environment.
@@ -83,21 +62,26 @@ __Configuring Vagrant to run Docker-0.7.1__
 
 This guide is partially based on official Docker guide: http://docs.docker.io/en/latest/installation/
 
-#Appendix B: Setting up public cloud infrastructure
+## Out of Scope
+The above setup was tested on MacOSX 10.8.5
 
-*Amazon Ec2 and Windows Azure are covered in this guide.*
+#Provisioning of Public Cloud
+##Taken steps
+##Monitoring options
 
-__Creating VM instance__
+#Implementation of Hybrid Cloud
+##Architecture Overview
+![Architecture Overview](HybridCloudOverview.png)
 
+## Go-To Stack
+![Go-To Stack](GoToStack.png)
 
-#Appendix C: Go-To API Reference
+## Migration
 
-Go-To provides a REST API to the pipeline of containers. All API calls are executed via Go-To Agent. Where applicable API supports both synchronous and asynchronous mode.
+## Network Features
 
-__Terminology__
-  * The Go-To Agent is a background process(daemon) which runs under priviledged user (root)
-  * The Go-To Pipeline is a set of all containers on the host with their metadata and statistics
-  
+# Demonstration of dynamic characteristics
+## Migration
   
 # References
 http://michaelwasham.com/2013/09/03/connecting-clouds-site-to-site-aws-azure/
