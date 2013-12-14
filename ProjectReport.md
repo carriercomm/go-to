@@ -77,12 +77,21 @@ In System virtualization, every application or a group of applocations is isolat
 
 #Implementation of Private Cloud
 
-Because the project doesn't require sepaearte Private Cloud infrastrucure to build a Hybrid Solution.
+Because the project doesn't require separate Private Cloud infrastrucure to build a Hybrid Solution.
 VirtualBox is used as a delelopment platform to "ineject" initial containers in the Hybrid Solution (Amazon AWS Ec2 + Windows Azure VM)
 
-Vagrant used to orchestrate configuration of VMs.
+Vagrant is used to orchestrate configuration of VMs.
+Vagrant provides a rich API for configuring and automatically provisioning VMs.
+Configuration is described via `Vagrantfile` which is written in Ruby.
 
-Follow these steps to complete the setup.
+Docker is used for managing containers inside VM.
+It provides similar configuration language via `Dockerfile` and provided an API on top of
+LXC toolkit – which is a low-level API for creating containers.
+
+Using `Vagrant` and `Docker` significantly simply and reduce time for a setup.
+As well as provide reproduceble set up.
+
+##Detailed steps to set up development environment
 
 __Install VirtualBox-4.3.4__
 
@@ -100,7 +109,10 @@ __Configuring Vagrant to run Docker-0.7.1__
     cd $GOTO_WORKSPACE
     
 Docker provided pre configuration for Vagrant
-    wget --no-check-certificate "https://github.com/dotcloud/docker/raw/v0.7.1/Vagrantfile" -O Vagrantfile
+
+    wget --no-check-certificate \
+    "https://github.com/dotcloud/docker/raw/v0.7.1/Vagrantfile" \
+    -O Vagrantfile
     
 Start VM and SSH to it
 
@@ -113,7 +125,9 @@ Commands below are executed in VM shell.
 
 Enable swap limit support. This is not enabled by default.
 
-    sudo sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"/' /etc/default/grub
+    sudo sed -i \
+    's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"/' \
+    /etc/default/grub
     
 Activate changes
 
@@ -137,7 +151,10 @@ VM is configured to run containers. Exit the VM shell
     exit 
 
 ## Out of Scope
-The above setup was tested on MacOSX 10.8.5
+The above setup was only tested on MacOSX 10.8.5.
+The above setup can be automated via Vagrant Provisioning API:
+http://docs.vagrantup.com/v2/provisioning/basic_usage.html
+
 
 #Provisioning of Public Cloud
 ##Taken steps
