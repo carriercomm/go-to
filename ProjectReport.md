@@ -228,18 +228,39 @@ Main findings:
 
 * Documentation is Windows specific. API not exposed and documented in Python Client
 
-* Maximum resolution is 5 minute
+* Maximum resolution is 5 minute.
+  That means it's hard to use this monitoring for troubleshooting but appropriate for capacity planning.
 
 #Implementation of Hybrid Cloud
+
+Hybrid solution is built on top of Amazon Ec2 and Windows Azure.
+
 ##Architecture Overview
+Go-to in a central part in this architecture it enables dynamic and automated migration of containers
+between cloud providers over secure VPN tunnel.
 !["Architecture Overview"](HybridCloudOverview.jpg)
 
 ## Go-To Stack
+Go-To rely on Docker as a way to communicate with containers. And on APIs for cloud provider to communicate with it's services.
 !["Go-To Stack"](GoToStack.jpg)
+
+###Go-To CLI options
+
+    $ go-to --help
+    Usage: go-to <CMD> <OPTIONS>
+    Available Commands:
+     - show-log [-s <time_since>] [-t <time_till>]: show autid log
+     - list-containers [regexp_pattern]: show all containers whose name matches with provided regexp
+     - migrate [-async] -s <source_name> [-t <target_name>] <target_host_or_ip>:
+       Perform migration. This command can be synchronus or asynchonous. In both cases migration_id
+       is written to log and to stdout.
+     - rollback <migration_id>: Roll back migration with given id
+               
 
 ## Migration
 
 ## Network Features
+VPN tunnel betweem Amazon Ec2 and Windows Azure is used to communicate.
 
 # Demonstration of dynamic characteristics
 ## Migration
