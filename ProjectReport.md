@@ -213,6 +213,7 @@ Main findings:
 
 ##Monitoring options
 ### Amazon AWS
+
 * Amazon has feature rich monitoring service – CloudWatch. It possible to emit custom metrics to Cloud Watch and build alarming or trigger scaling on top of there metrics.
 
 * Very important feature of CloudWatch is support for backfilling of metrics.
@@ -238,10 +239,12 @@ Hybrid solution is built on top of Amazon Ec2 and Windows Azure.
 ##Architecture Overview
 Go-to in a central part in this architecture it enables dynamic and automated migration of containers
 between cloud providers over secure VPN tunnel.
+
 !["Architecture Overview"](HybridCloudOverview.jpg)
 
 ## Go-To Stack
 Go-To relies on Docker as a way to communicate with containers. And on APIs for cloud provider to communicate with it's services.
+
 !["Go-To Stack"](GoToStack.jpg)
 
 ###Go-To CLI options
@@ -259,14 +262,32 @@ Go-To relies on Docker as a way to communicate with containers. And on APIs for 
 
 ## Migration
 
+Transfer of container is performed in few steps:
+
+- Freeze container which a suject to transfer
+- Dump its contents to disk in tar.gz archive
+- Sign & encrypt container with a x509 certificate
+- Connect to remote Go-To Agent
+- Remote Go-To agent perform a tocken verification
+- Remote Go-To agent checks disk space and other resources
+- Data in streamed over TCP socket to target host
+- Remote agent unpacks the container archive & activates it
+
+
 ## Network Features
-VPN tunnel between Amazon Ec2 and Windows Azure is used to communicate.
+
+VPN tunnel between Amazon Ec2 and Windows Azure is used for communication.
+
+Configuration of VPC is based on <http://aws.amazon.com/articles/0639686206802544>.
+This scheme is flexible and allows connections from development environemnt.
+
 
 # Demonstration of dynamic characteristics
 ## Migration
   
 # References
 ## Web resources
+
 <http://lwn.net/Articles/524952/>
 
 <http://michaelwasham.com/2013/09/03/connecting-clouds-site-to-site-aws-azure/>
@@ -286,6 +307,7 @@ VPN tunnel between Amazon Ec2 and Windows Azure is used to communicate.
 <http://marceloneves.org/papers/pdp2013-containers.pdf>
 
 ##Papers
+
 Menage, Paul B. "Adding generic process containers to the linux kernel." Linux Symposium. 2007.
 
 Xavier, Miguel G., et al. "Performance Evaluation of Container-based Virtualization for High Performance Computing Environments." Parallel, Distributed and Network-Based Processing (PDP), 2013 21st Euromicro International Conference on. IEEE, 2013.
