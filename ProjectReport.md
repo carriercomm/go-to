@@ -7,13 +7,17 @@
 Different Public Cloud Providers have different and not interoperable format of OS images.
 This cause a “Vendor Lock-in” effect.
 Which is a potential risk for every business operating in the Public Cloud at IaaS level.
+For Hybrid Cloud deployments the above aspect causes an operational complexity.
+An owner of a hybrid setup must maintain separate OS configuration for it's Privete and Public parts infrastructure.
+In critical scenarios such as a company or organization required to switch from one Public Cloud provider to another.
+Time and engeneering effort should be spent to create a new configuration and deplyments for a new cloud infrastructure.
 
 ## Projec Goal
 Provide an automated migration pipeline for OS images between different Cloud Providers.
 Develop a threat model, analyse related security risks and mitigation techniques.
 
 ## In Scope
-As a Public Cloud providers Amazon AWS and Windows Azure are used.
+As Public Cloud providers Amazon AWS and Windows Azure are used.
 Only Linux will evaluated in this project.
 
 #Design
