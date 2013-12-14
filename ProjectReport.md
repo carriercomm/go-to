@@ -281,10 +281,6 @@ VPN tunnel between Amazon Ec2 and Windows Azure is used for communication.
 Configuration of VPC is based on <http://aws.amazon.com/articles/0639686206802544>.
 This scheme is flexible and allows connections from development environemnt.
 
-
-# Demonstration of dynamic characteristics
-## Migration
-  
 # References
 ## Web resources
 
