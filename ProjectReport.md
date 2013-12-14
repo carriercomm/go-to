@@ -182,8 +182,53 @@ The above setup can be automated via Vagrant Provisioning API:
 
 
 #Provisioning of Public Cloud
-##Taken steps
+
+Amazon Ec2 and Windows Azure are evaluated in this section.
+The goal is to create VM instances in both clouds in a private network.
+Link these two networks via a VPN tunnel.
+
+##Taken steps to set up instances
+
+Source code of scripts to automate instance creation are provided in Appendix A and Appendix B.
+
+Main findings:
+### Amazon Ec2
+* The process is well documented and there a lot of examples avaiable for different automation options.
+
+* When working under particular IAM used under one account it's possible to acces credentials and keys of other IAM users.
+  Which is a potential security risk.
+
+* Certificates must be uploaded in every region endpoints serapatly. This complicates the setup in multi-region environments.
+
+### Windows Azure
+* Lack of examples on how automatically provision an instance with a linux OS.
+
+* The Python client API provided by Microsoft is very poorly documented in incomplete.
+  Some API calls are missing. Some are completly undocumented.
+
+* Support for linux Guest OS is redementary.
+  I was unable to find a way to upload an SSH certificate instead of using plain text passwords in my script.
+
+* Some limits are non-practical. For example: It's only possible to upload 10 managment certificates per cloud service.
+
 ##Monitoring options
+### Amazon AWS
+* Amazon has feature rich monitoring service – CloudWatch. It possible to emit custom metrics to Cloud Watch and build alarming or trigger scaling on top of there metrics.
+
+* Very important feature of CloudWatch is support for backfilling of metrics.
+  CloudWatch honors the timestamp which provided during the API Call PutMetrics:
+  <http://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_PutMetricData.html>.
+  This enabled consistent stream fo metrics without gaps.
+
+* Maximum resolution of metrics is 1 minute.
+
+#### Windows Azure
+
+* Built-in monitoring into CLoud Service
+
+* Documentation is Windows specific. API not exposed and documented in Python Client
+
+* Maximum resolution is 5 minute
 
 #Implementation of Hybrid Cloud
 ##Architecture Overview
@@ -226,7 +271,8 @@ Xavier, Miguel G., et al. "Performance Evaluation of Container-based Virtualizat
 
 Shea, Ryan, and Jiangchuan Liu. "Performance of Virtual Machines Under Networked Denial of Service Attacks: Experiments and Analysis." (2013): 1-1.
 
+#Appendix A: Scripts to automate creation and configuration of Amazon Ec2
 
-
+#Appndix B: Scripts to automate creting and configuration of Windows Azure
 
 
