@@ -6,6 +6,13 @@
 ## Problem Statement
 Different Public Cloud Providers have different and not interoperable format of OS images.
 This cause a “Vendor Lock-in” effect.
+
+For example.
+In case of linux system configuration of Guest OS is different for Amazon Ec2 and Windows Azure.
+After performing a snapshot of a live system it's not possible to resume this image in different cloud
+provider or in your local environemt.
+The image will not boot unless you use the same hypervisor with identical configuration.
+
 Which is a potential risk for every business operating in the Public Cloud at IaaS level.
 For Hybrid Cloud deployments the above aspect causes an operational complexity.
 An owner of a hybrid setup must maintain separate OS configuration for it's Privete and Public parts infrastructure.
@@ -17,10 +24,13 @@ Provide an automated migration pipeline for OS images between different Cloud Pr
 Develop a threat model, analyze related security risks and mitigation techniques.
 
 ## In Scope
-As Public Cloud providers Amazon AWS and Windows Azure are used.
 
-Ubuntu Linux 12.04 LTS is used in this project.
-This OS version is most widly used and available from all Public Cloud Providers.
+* Amazon AWS and Windows Azure Public Cloud providers are used
+* Ubuntu Linux 12.04 LTS is used in this project as a Guest OS
+* Vagrant on top of VirtualBox is used as a local Private Cloud
+* Docker is used to manage Linux Containers in the Guest OS
+* VPN tunnel between Cloud Providers is used to transers OS images.
+
 
 #Design
 ## Evaluating options
