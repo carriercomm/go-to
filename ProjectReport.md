@@ -273,6 +273,597 @@ Shea, Ryan, and Jiangchuan Liu. "Performance of Virtual Machines Under Networked
 
 #Appendix A: Scripts to automate creation and configuration of Amazon Ec2
 
+## generate_config.py: Generate configuration to access API
+
+    #!/usr/bin/env python
+
+    '''
+    Generate config to access AWS Ec2
+    '''
+
+    __author__ = "Leonid Vasilyev, <vsleonid@gmail.com>"
+
+    import base64
+    import json
+    import os
+    import subprocess
+    import sys
+    import stat
+
+    import boto
+    import boto.ec2
+
+
+    def generate_server_cert(pem, cer):
+        if not os.path.exists(pem):
+            raise ValueError("{} doesn't exists".format(pem))
+
+        if os.path.exists(cer):
+            sys.stderr.write("{} already exists".format(cer))
+            return
+
+        cmd = [
+            "ssh-keygen",
+            "-t",
+            "rsa",
+            "-y",
+            "-f",
+            pem
+        ]
+        with open(cer, "w") as f:
+            subprocess.check_call(" ".join(cmd), stdout=f, shell=True)
+
+
+    def generate_client_cert(pem):
+        if os.path.exists(pem):
+            sys.stderr.write("{} already exists".format(pem))
+            return
+        cmd = [
+            "openssl",
+            "genrsa",
+            "1024"
+        ]
+        with open(pem, "w") as f:
+            subprocess.check_call(" ".join(cmd), stdout=f, shell=True)
+
+        os.chmod(pem, stat.S_IREAD | stat.S_IWRITE)
+
+
+    def main(key, secret, ssh_key_name, ssh_key_dir, config_path):
+        ssh_key_dir = os.path.abspath(ssh_key_dir)
+
+        cer = ssh_key_name + ".cer"
+        pem = ssh_key_name + ".pem"
+
+        cer_path = os.path.join(ssh_key_dir, cer)
+        pem_path = os.path.join(ssh_key_dir, pem)
+
+        config = {
+            "access_key_id": key,
+            "secret_access_key": secret,
+            "certificate_path": pem_path,
+        }
+
+        generate_client_cert(pem_path)
+        generate_server_cert(pem_path, cer_path)
+
+        all_regions = boto.ec2.regions(
+            aws_access_key_id=key,
+            aws_secret_access_key=secret)
+
+        with open(cer_path, 'rb') as f:
+            cert_data = f.read()
+
+        for region in all_regions:
+            print "---"
+            print "Importing to:", region.name
+            print "---"
+            try:
+                ec2 = boto.ec2.connect_to_region(
+                    region.name,
+                    aws_access_key_id=key,
+                    aws_secret_access_key=secret)
+
+                ec2.import_key_pair(
+                        ssh_key_name,
+                        cert_data)
+
+            except Exception as e:
+                sys.stderr.write(
+                    "Unable to import {} to {}: {}\n".format(
+                        ssh_key_name, region.name, e))
+
+        with open(config_path, 'w') as f:
+            json.dump(config, f, indent=2)
+
+
+    if __name__ == "__main__":
+        if len(sys.argv) != 6:
+            sys.stderr.write(
+                "Usage: {} <aws_key>\
+                           <aws_secret>\
+                           <ssh_key_name> \
+                           <ssh_key_dir> \
+                           <config_path.json>\n".format(sys.argv[0]))
+            sys.exit(1)
+        main(*sys.argv[1:])
+
+## check_config.py: Check that generated configuration is valid and display various information from account
+
+    #!/usr/bin/env python
+
+    '''
+    Check Ec2 configuration
+    '''
+
+    import sys
+    import json
+
+    import boto.ec2
+    import boto.exception
+
+
+    def main(config_path):
+        config = {}
+        with open(config_path) as f:
+            config = json.load(f)
+
+        regions = boto.ec2.regions(
+            aws_access_key_id=config['access_key_id'],
+            aws_secret_access_key=config['secret_access_key']
+        )
+
+        print "Ec2 regions:"
+        print "-----------"
+
+        for r in sorted(regions, key=lambda o: o.name):
+            print "{: <20} https://{}".format(r.name, r.endpoint)
+
+        print ""
+        print "Ec2 reservations:"
+        print "----------------"
+
+        for reg in regions:
+            print ""
+            print "Reservaions for {}:".format(reg.name)
+            conn = boto.ec2.connect_to_region(
+                reg.name,
+                aws_access_key_id=config['access_key_id'],
+                aws_secret_access_key=config['secret_access_key'])
+            try:
+                print "\n".join(
+                    "  * id:{}\n    owner_id:{}\n    instasnces: {}".format(
+                        r.id, r.owner_id,
+                        ",".join([i.public_dns_name for i in r.instances]))
+                    for r in conn.get_all_reservations())
+            except boto.exception.EC2ResponseError:
+                pass
+
+            print ""
+            print "  Available keypairs:"
+            print "  =================="
+
+            try:
+                for keypair in conn.get_all_key_pairs():
+                    print "   -" + keypair.name
+            except boto.exception.EC2ResponseError:
+                pass
+
+
+    if __name__ == "__main__":
+        if len(sys.argv) != 2:
+            sys.stderr.write("Usage: {} <config.json>\n".format(sys.argv[0]))
+            sys.exit(1)
+        main(sys.argv[1])
+
+
+## launch_instance.py: Launch ec2 instance
+
+    #!/usr/bin/env python
+
+    '''
+    Start new ec2 instance with open ssh port
+    '''
+
+    __author__ = "Leonid Vasilyev, <vsleonid@gmail.com>"
+
+    import json
+    import os
+    import sys
+    import time
+    from datetime import datetime
+
+    import boto
+    import boto.ec2
+
+
+    # based on http://cloud-images.ubuntu.com/releases/precise/release/
+    INSTANCE_CONFIG = {
+        "ami": "ami-14907e63", # Ubuntu 12.04.3 LTS eu-west-1 64-bit instance
+        "region": "eu-west-1",
+        "type": "m1.small",
+    }
+
+
+    def main(config_path, name_prefix, tag):
+        with open(config_path) as f:
+            config = json.load(f)
+
+        ec2 = boto.ec2.connect_to_region(
+            INSTANCE_CONFIG['region'],
+            aws_access_key_id=config['access_key_id'],
+            aws_secret_access_key=config['secret_access_key'])
+
+        name = name_prefix + "-" + datetime.utcnow().isoformat()
+
+        # Assume that ssh key is uploaded
+
+        group = ec2.create_security_group(
+            name,
+            'A group that allows SSH access')
+        group.authorize('tcp', 22, 22, "0.0.0.0/0")
+
+        reservation = ec2.run_instances(
+                INSTANCE_CONFIG['ami'],
+                key_name=os.path.basename(config['certificate_path']).split(".")[0],
+                instance_type=INSTANCE_CONFIG['type'],
+                security_groups=[name])
+
+        # Find the actual Instance object inside the Reservation object
+        # returned by EC2.
+
+        instance = reservation.instances[0]
+
+        # The instance has been launched but it's not yet up and
+        # running.  Let's wait for it's state to change to 'running'.
+
+        print 'waiting for instance'
+        while instance.state != 'running':
+            print '.',
+            time.sleep(1)
+            instance.update()
+        print 'done'
+
+        instance.add_tag(tag)
+
+        print "DoNe! To connect use:"
+        print "ssh -i {} ubuntu@{}".format(
+            config['certificate_path'],
+            instance.public_dns_name
+        )
+
+
+    if __name__ == "__main__":
+        if len(sys.argv) != 4:
+            sys.stderr.write("Usage:\n {} <config-path>\
+                 <name-prefix> <tag>\n".format(sys.argv[0]))
+            sys.exit(1)
+        main(*sys.argv[1:])
+
+
 #Appndix B: Scripts to automate creting and configuration of Windows Azure
 
+## generate_config.py: Generate configuration
 
+    #!/usr/bin/env python
+
+    '''
+    Generate config for Azure
+    '''
+
+    __author__ = "Leonid Vasilyev, <vsleonid@gmail.com>"
+
+
+    import sys
+    import os
+    import subprocess
+    import json
+
+
+    def generate_server_cert(pem, cer):
+        if not os.path.exists(pem):
+            raise ValueError("{} doesn't exists".format(pem))
+
+        if os.path.exists(cer):
+            sys.stderr.write("{} already exists".format(cer))
+            return
+
+        cmd = [
+            "openssl",
+            "x509",
+            "-in",
+            pem,
+            "-out",
+            cer,
+        ]
+        subprocess.check_call(" ".join(cmd), shell=True)
+
+
+    def generate_client_cert(pem):
+        if os.path.exists(pem):
+            sys.stderr.write("{} already exists".format(pem))
+            return
+        cmd = [
+            "openssl",
+            "req",
+            "-x509",
+            "-nodes",
+            "-days",
+            "365",
+            "-newkey",
+            "rsa:1024",
+            "-keyout",
+            pem,
+            "-out",
+            pem,
+        ]
+        subprocess.check_call(" ".join(cmd), shell=True)
+
+
+    def get_public_key(cer, pubkey):
+        cmd = "openssl x509 -in " + cer + " -pubkey -noout"
+
+        subprocess.check_call(cmd, stdout=open(pubkey, "wb"), shell=True)
+
+
+    def main(subscription_id, api_cert_path, cert_path, config_path):
+        api_cert_path = os.path.abspath(api_cert_path)
+        cert_path = os.path.abspath(cert_path)
+        config_path = os.path.abspath(config_path) 
+
+        if os.path.exists(config_path):
+            raise ValueError("{} exists".format(config_path))
+
+        cer = cert_path + ".cer"
+        pem = cert_path + ".pem"
+        pubkey = cert_path + ".pk"
+
+        generate_client_cert(pem)
+        generate_server_cert(pem, cer)
+        get_public_key(cer, pubkey)
+
+        config = {}
+        config['subscription_id'] = subscription_id
+        config['api_certificate_path'] = api_cert_path
+        config['certificate_path'] = cer
+        config['certificate_pubkey'] = pubkey
+
+        with open(config_path, "w") as f:
+            json.dump(config, f, indent=4)
+
+
+    if __name__ == "__main__":
+        if len(sys.argv) != 5:
+            sys.stderr.write(
+                "Usage: {} <subscription_id> <api_cert_path> <cert_path> <config-name.json>\n".format(sys.argv[0]))
+            sys.exit(1)
+        main(*sys.argv[1:])
+
+## check_config.py: Check that generated configuration is correct and fetch various information from account
+
+    #!/usr/bin/env python
+
+    '''
+    Check access to Azure API
+    '''
+
+    __author__ = "Leonid Vasilyev, <vsleonid@gmail.com>"
+
+
+    import json
+    import sys
+    import os
+
+
+    import azure.servicemanagement as smgmt
+
+
+    def print_locations_and_services(sms):
+        print "Available locations & services:"
+        print "=============================="
+
+        for i, loc in enumerate(sms.list_locations()):
+            print("{}.{}:\n  {}".format(
+                i + 1,
+                loc.display_name,
+                ", ".join(loc.available_services)))
+
+
+    def print_available_os_images(sms):
+        print "Available OS images:"
+        print "==================="
+
+        def _by_os_and_label(image):
+            return image.os, image.label
+
+        for image in sorted(sms.list_os_images(), key=_by_os_and_label):
+            print "{os}: {label} ({size}GB)\n{name}".format(
+                os=image.os,
+                label=image.label,
+                size=image.logical_size_in_gb,
+                name=image.name
+            )
+            print " "
+
+
+    def print_disks_info(sms):
+        print "Disks info:"
+        print "=========="
+
+        for disk in sms.list_disks():
+            print "{name}({size}GB):\n{source}\n{attached}".format(
+                name=disk.name,
+                size=disk.logical_disk_size_in_gb,
+                source=disk.source_image_name,
+                attached=disk.attached_to.hosted_service_name +
+                "/" + disk.attached_to.deployment_name
+            )
+            print " "
+
+
+    def print_hosted_services(sms):
+        print "Hosted Services Info:"
+        print "===================="
+        for service in sms.list_hosted_services():
+            print service.service_name
+            for k, v in service.hosted_service_properties.__dict__.iteritems():
+                if k.startswith('_'):
+                    continue
+                print "  {}: {}".format(k, v)
+
+
+    def main(config_path):
+        if not os.path.exists(config_path):
+            raise ValueError("'{}' doesn't exists".format(config_path))
+
+        config = {}
+        with open(config_path) as f:
+            config = json.load(f)
+
+        subscription_id = config['subscription_id']
+        certificate_path = config['certificate_path']
+
+        sms = smgmt.ServiceManagementService(subscription_id, certificate_path)
+
+        print "Account summary:"
+        print "---------------"
+        print_locations_and_services(sms)
+        print_available_os_images(sms)
+        print_disks_info(sms)
+        print_hosted_services(sms)
+
+
+    if __name__ == "__main__":
+        if len(sys.argv) != 2:
+            sys.stderr.write(
+                "Usage: {} <config-file.json>\n".format(sys.argv[0]))
+            sys.exit(1)
+        main(sys.argv[1])
+
+## launch_instance.py: Launch instance in Azure with generated configuration
+
+    #!/usr/bin/env python
+
+    '''
+    Script to launch Azure VM
+    '''
+
+    __author_ = "Leonid Vasilyev, <vsleonid@gmail.com>"
+
+    import json
+    import hashlib
+    import time
+    import os
+    import sys
+    import base64
+    from datetime import datetime
+
+    import azure
+    from azure.servicemanagement import *
+
+    INSTANCE_CONFIG = {
+        "region": "West Europe",
+        "image": "b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu_DAILY_BUILD-precise-12_04_3-LTS-amd64-server-20131205-en-us-30GB",
+        "type": "Medium",
+    }
+
+
+    def main(config_path, prefix):
+        with open(config_path) as f:
+            config = json.load(f)
+
+        name = prefix + "-" + hashlib.md5(datetime.utcnow().isoformat()).hexdigest()
+
+        sms = ServiceManagementService(
+            config['subscription_id'],
+            config['api_certificate_path'])
+
+        sms.create_hosted_service(
+            service_name=name,
+            label=name,
+            location=INSTANCE_CONFIG['region'])
+
+        cert_data = open(config['certificate_path']).read()
+        fingerpring = hashlib.sha1(cert_data).hexdigest().upper()
+        sms.add_management_certificate(
+            public_key=cert_data,
+            thumbprint=fingerpring,
+            data=cert_data
+        )
+
+        # Try to reuse storage account first
+        # becase limit of storage accounts is by default 1.
+        storage_accounts = sms.list_storage_accounts()
+
+        if len(storage_accounts):
+            storage = storage_accounts[-1]
+            # Storage and Service can't be in different regions
+            if storage.storage_service_properties.location != INSTANCE_CONFIG["region"]:
+                raise ValueError(
+                    ("Can't use Storage account from different region: service is in"
+                     "{} but storage is in {}").format(
+                        INSTANCE_CONFIG["region"],
+                        storage.storage_service_properties.location))
+            storage_name = storage.service_name
+        else:
+            storage_name = name.replace("-", "")[:24]
+
+            sms.create_storage_account(
+                service_name=storage_name,
+                description=storage_name,
+                label=storage_name,
+                location=INSTANCE_CONFIG['region']
+            )
+
+        vhd = OSVirtualHardDisk(
+            INSTANCE_CONFIG["image"],
+            "http://{service}.blob.core.windows.net/{container}/{blob}.vhd".format(
+                service=storage_name,
+                container=name,
+                blob="os"
+            ).lower().replace("_", "-").replace("--", "-")
+        )
+
+        linux_config = LinuxConfigurationSet(
+            name,
+            "ubuntu",
+            name, # will not be used
+            disable_ssh_password_authentication=True)
+
+        publickey = PublicKey(
+            fingerpring,
+            "/home/ubuntu/.ssh/authorized_keys") # file on VM
+        linux_config.ssh.public_keys.public_keys.append(publickey)
+
+        network = ConfigurationSet()
+        network.configuration_set_type = 'NetworkConfiguration'
+        network.input_endpoints.input_endpoints.append(
+            ConfigurationSetInputEndpoint('ssh', 'tcp', '22', '22'))
+
+        result = sms.create_virtual_machine_deployment(
+            service_name=name,
+            deployment_name=name,
+            deployment_slot='production',
+            label=name,
+            role_name=name,
+            system_config=linux_config,
+            os_virtual_hard_disk=vhd,
+            network_config=network,
+            role_size=INSTANCE_CONFIG['type'])
+
+        print result
+
+        while True:
+            status = sms.get_operation_status(result.request_id).status
+            if status != u"InProgress":
+                print status
+                break
+            time.sleep(1)
+            print ".",
+
+
+    if __name__ == "__main__":
+        if len(sys.argv) != 3:
+            sys.stderr.write("Usage: {} <config-path.json> <name-prefix>\n".format(sys.argv[0]))
+            sys.exit(1)
+        main(*sys.argv[1:])
