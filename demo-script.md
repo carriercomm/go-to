@@ -36,6 +36,8 @@ Follow this guide to configure the system:
     
 ## Using Dockerfiles configurations:
 
+### Create a Docekrfile:
+
     cd /croot/firefox-vnc
     cat Dockerfile
     # Firefox over VNC
@@ -55,8 +57,22 @@ Follow this guide to configure the system:
     EXPOSE 5900
     CMD    ["x11vnc", "-forever", "-usepw", "-create"]
     
-    # build container
+### Build container:
+
     sudo docker build -t vasilyev/firefox .
+    
+### Run a container:
+
+    sudo docker run -name firefox-vnc -p 5900:5900 -d vasilyev/firefox
+    
+### Export a container:
+
+    sudo docker export firefox-vnc > firefox-vnc.tar
+    bzip2 firefox-vnc.tar
+    
+### Import a container:
+
+    cat firefox-vnc.tar | sudo docker import - firefox-vnc:orig
     
     
     
