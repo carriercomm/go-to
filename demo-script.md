@@ -1,6 +1,6 @@
 #Demo of linux containers' migration
 
-This demonstration done in Ubuntu 12.04 LTS
+This demonstration is done in Ubuntu 12.04 LTS
 
 ## Configuring Guest OS
 
@@ -14,6 +14,8 @@ Follow this guide to configure the system:
     cd ~/Dev/go-to
     ssh -i openvpn-server-1.nrt.pem ubuntu@54.238.185.51
     
-    
-## Connecting to Azure
+## Connecting to Azure:
+
+    cd ~/Dev/go-to
+    ssh -i azure/azure_goto.pem ubuntu@137.117.145.155
 
