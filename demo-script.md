@@ -18,4 +18,10 @@ Follow this guide to configure the system:
 
     cd ~/Dev/go-to
     ssh -i azure/azure_goto.pem ubuntu@137.117.145.155
+    
+## Checking containers:
+
+    sudo docker run -i -t ubuntu /bin/bash
+    
+    
 
