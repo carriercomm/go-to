@@ -36,6 +36,8 @@ Follow this guide to configure the system:
     
 ## Using Dockerfiles configurations:
 
+    cd /croot/firefox-vnc
+    cat Dockerfile
     # Firefox over VNC
     #
     # VERSION               0.3
@@ -52,6 +54,12 @@ Follow this guide to configure the system:
     RUN bash -c 'echo "firefox" >> /.bashrc':w
     EXPOSE 5900
     CMD    ["x11vnc", "-forever", "-usepw", "-create"]
+    
+    # build container
+    sudo docker build -t vasilyev/firefox .
+    
+    
+    
     
     
 
