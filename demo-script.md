@@ -22,6 +22,7 @@ Follow this guide to configure the system:
 ## Checking containers:
 
     sudo docker run -i -t ubuntu /bin/bash
+    sudo docker pull ubuntu
     
     
 
