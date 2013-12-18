@@ -24,5 +24,10 @@ Follow this guide to configure the system:
     sudo docker run -i -t ubuntu /bin/bash
     sudo docker pull ubuntu
     
+## Viewing logs of container:
+
+    sudo docker ps -a # list all containers
+    sudo docker logs <container_id>
+    
     
 
