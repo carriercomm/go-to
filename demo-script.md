@@ -29,5 +29,29 @@ Follow this guide to configure the system:
     sudo docker ps -a # list all containers
     sudo docker logs <container_id>
     
+## Initialize containers directory:
+
+    sudo mkdir /croot
+    sudo mkdir /cdata
+    
+## Using Dockerfiles configurations:
+
+    # Firefox over VNC
+    #
+    # VERSION               0.3
+    FROM ubuntu
+    # make sure the package repository is up to date
+    RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
+    RUN apt-get update
+    # Install vnc, xvfb in order to create a 'fake' display and firefox
+    RUN apt-get install -y x11vnc xvfb firefox
+    RUN mkdir /.vnc
+    # Setup a password
+    RUN x11vnc -storepasswd 1234 ~/.vnc/passwd
+    # Autostart firefox (might not be the best way, but it does the trick)
+    RUN bash -c 'echo "firefox" >> /.bashrc':w
+    EXPOSE 5900
+    CMD    ["x11vnc", "-forever", "-usepw", "-create"]
+    
     
 
