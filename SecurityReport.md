@@ -41,11 +41,26 @@ Develop a threat model, analyse related security risks and mitigation techniques
 and a project plan specifying the tasks
 and dependencies associated with the implementation of security]
 
+Microsoft Threat Modeling Process was used for threat modeling.
+It has the following stages:
+
+1. Identify Security Objectives
+2. Perform an application design overview
+3. Perform a decomposition
+4. Identify Threats
+5. Identify Vulnerabilities
+
+STRIDE was used to perform a decomposition of a system.
+DREAD was used to perform a ranking of found security threats.
+
 ## Selection of Tools, Methodologies and Frameworks for Security Testing
 
 [documentation of choice of toolset utilised as part of the security implementation
 including rationale for choice, level of default security provision,
 and the manner in which you have further hardened the system.]
+
+I picked Microsoft Threat Modeling Process because it's very practical and well documented.
+It suggests using STRIDE and DREAD which are also very practical compared to OCTAVE or CVSS.
 
 ## Technical Testing Approach
 
@@ -61,6 +76,10 @@ with respect to the developed system.]
 [highlight any areas of the system that may be vulnerable to attack
 or those areas that require further investigation
 and analysis to ascertain the system’s level of vulnerability.]
+
+The main challenge is that it's impossible at IaaS level indetify few major Security Objectvies
+such as Indentity Abuse, Privacy, Financial Regulations and Reputation risks.
+These objectives should be managed at SaaS level.
 
 ## Outcome
 
@@ -82,8 +101,17 @@ as it allows to avoid Vendor Lock-In effect at Operating System level.
 
 ## References
 
+### Papers
+
 Jansen, Wayne, and Timothy Grance. "Guidelines on security and privacy in public cloud computing." NIST special publication (2011): 800-144.
 
 Liu, Fang, et al. "NIST cloud computing reference architecture." NIST special publication 500 (2011): 292.
 
 Brunette, G., and R. Mogull. "Security Guidance for critical areas of focus in Cloud Computing V3.0. CSA (Cloud Security Alliance), USA (2011)."
+
+
+### Web resources
+
+http://msdn.microsoft.com/en-us/magazine/cc163519.aspx
+
+https://www.owasp.org/index.php/Threat_Risk_Modeling#Identify_Threats
