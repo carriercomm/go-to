@@ -32,7 +32,7 @@ Develop a threat model, analyse related security risks and mitigation techniques
 
 ## Architectire Overview
 
-[]
+!["Architecture Overview"](HybridCloudOverview.jpg)
 
 # Security analysis
 ## Approach & Planning
