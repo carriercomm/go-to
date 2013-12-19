@@ -112,6 +112,6 @@ Brunette, G., and R. Mogull. "Security Guidance for critical areas of focus in C
 
 ### Web resources
 
-http://msdn.microsoft.com/en-us/magazine/cc163519.aspx
+<http://msdn.microsoft.com/en-us/magazine/cc163519.aspx>
 
-https://www.owasp.org/index.php/Threat_Risk_Modeling#Identify_Threats
+<https://www.owasp.org/index.php/Threat_Risk_Modeling#Identify_Threats>
