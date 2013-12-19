@@ -51,18 +51,62 @@ DREAD was used to perform a ranking of found security threats.
 
 ### Identify Security Objectives
 
+The main security objective is to prevent data leakage outside Guest OS or secure storage.
+
 According to NIST:
 "Migrating data directly from one cloud system to another
-will require standards for federated identity, delegation of trust, and s
-ecure third-party data transfers".
+will require standards for federated identity, delegation of trust,
+and secure third-party data transfers".
 
 ### Design Overview
 
+See diagram in previous section
+
 ### Decomposition
+
+The data in container can be split in two categories: system's data and user's data.
 
 ### Identifying Threats
 
+Following STRIDE classication scheme, the following groups of threat should be considered:
+
+#### Spoofing Identity
+
+This is high risk. Currently there is no notion of identity in Docker.
+This feature is on the team's backlog: <https://github.com/dotcloud/docker/issues/2700>
+
+#### Tampering with Data
+
+This is high risk. One can interface container archive and inject malware into it.
+This can be mitigated by signing, encrypting and providing checksum of a container.
+
+#### Repudiation
+
+This threat is minimal.
+Docker which used to lauch a container maintains full log of commands executed in container.
+
+#### Information Disclosure
+
+This risk is very high. Even if container encrypted and signed nothing prevents an application deployed 
+in a partucular container to emit sensitive informainto into container.
+To mitigate this all containers should be configured in a such a way that all state in stored outside the container.
+
+#### Denial of Service
+
+The risk is medium. Containers provide rich controls to configure limits for various resources, although
+this configuration might be very complex.
+
+#### Elevation of Privilege
+
+The risk in high. Containers operate under privilidged user (root).
+To mitigate this configuration of LXC should be changed from "Open by default" to "Closed by default"
+see: <https://github.com/lxc/lxc/blob/master/config/templates/ubuntu.common.conf.in#L18> for such example.
+
 ### Identifying Vulnerabilities
+
+Searching on NIST NVD resulted in just a few CVEs:
+* <http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-4080&cid=1>
+* <http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2012-3449&cid=3>
 
 ## Selection of Tools, Methodologies and Frameworks for Security Testing
 
