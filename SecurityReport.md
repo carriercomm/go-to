@@ -63,3 +63,14 @@ and analysis to ascertain the system’s level of vulnerability.]
 [synopsis of results and outcome of project.]
 
 ## Conclusion
+
+System Virtualization opens up new possibilities for auditing applications at IaaS level and inspecting activity as well as provide a fine grain mechanish to control resource consumption. System Virtualization also creates opprotunities for Cloud Broker and Cloud Auditors (accoring to NIST Reference Architecture).
+
+
+## References
+
+Jansen, Wayne, and Timothy Grance. "Guidelines on security and privacy in public cloud computing." NIST special publication (2011): 800-144.
+
+Liu, Fang, et al. "NIST cloud computing reference architecture." NIST special publication 500 (2011): 292.
+
+Brunette, G., and R. Mogull. "Security Guidance for critical areas of focus in Cloud Computing V3.0. CSA (Cloud Security Alliance), USA (2011)."
