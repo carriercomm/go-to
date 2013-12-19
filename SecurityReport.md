@@ -30,6 +30,10 @@ Develop a threat model, analyse related security risks and mitigation techniques
 * Docker is used to manage Linux Containers in the Guest OS
 * VPN tunnel between Cloud Providers is used to transfer OS images.
 
+## Architectire Overview
+
+[]
+
 # Security analysis
 ## Approach & Planning
 
