@@ -163,6 +163,34 @@ Disk quotes should be configured separately using advanced features of some file
 
 ### DREAD Risk Rating
 
+the Go-To is an IaaS level system and in not directly exposed to externals users.
+Only system administrators and developers should interact with this system.
+
+Below is a common aggregated DREAD rank for all threats.
+
+#### Damage Potential
+
+10 = Complete system or data destruction 
+
+#### Reproducibility
+
+0 = Very hard or impossible, even for administrators of the application
+
+#### Exploitability
+
+5 = Malware exists on the Internet, or an exploit is easily performed, using available attack tools
+
+#### Affected Users
+
+10 = All users 
+
+#### Discoverability
+
+9 = Details of faults like this are already in the public domain and can be easily discovered using a search engine.
+(Source code of all tool is freely available for security audit)
+
+Rank: (10 + 0 + 5 + 10 + 9) / 5 = 6.8
+
 ## Challenges & Limitations
 
 The main challenge during threat modeling was the fact that
