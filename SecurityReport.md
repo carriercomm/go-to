@@ -62,6 +62,27 @@ and the manner in which you have further hardened the system.]
 I picked Microsoft Threat Modeling Process because it's very practical and well documented.
 It suggests using STRIDE and DREAD which are also very practical compared to OCTAVE or CVSS.
 
+For data encyption OpenSSL was chosen. It's a very well documented and tested crypto library.
+
+For testing the folling tools were used:
+
+* nmap for scanning network
+* metasploit for generating & deploying expoits
+* tcpdump for network sniffing
+* ApacheBench for benchmarking HTTP services
+* Custom Python scripts for DoS attacks
+
+System was hardened using AppArmor which is a Mandatory Access Control (MAC) system
+available in Linux since 2.6.36 kernel.
+
+AppArmor provides a security model in which user is to bind access control attributes to programs rather than to users.
+AppArmor confinement is provided via profiles loaded into the kernel, typically on boot.
+AppArmor profiles can be in one of two modes: enforcement and complain.
+Profiles loaded in enforcement mode will result in enforcement of the policy defined in the profile as well as reporting policy violation attempts (either via syslog or auditd).
+
+AppArmor is easier to configure than SELinux or SMACK (both are also MAC systems).
+
+
 ## Technical Testing Approach
 
 [documentation of process involved in testing the security that has been implemented.]
