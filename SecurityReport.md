@@ -30,13 +30,14 @@ Develop a threat model, analyse related security risks and mitigation techniques
 * Docker is used to manage Linux Containers in the Guest OS
 * VPN tunnel between Cloud Providers is used to transfer OS images.
 
+# Security analysis
 ## Approach & Planning
 
 detailing the approach you have taken to implement security across the system in question
 and a project plan specifying the tasks
 and dependencies associated with the implementation of security
 
-## Selection of Tools / Methodologies / Frameworks / Benchmarking
+## Selection of Tools, Methodologies and Frameworks for Security Testing
 
 documentation of choice of toolset utilised as part of the security implementation
 including rationale for choice, level of default security provision,
