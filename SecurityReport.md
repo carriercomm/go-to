@@ -55,10 +55,6 @@ DREAD was used to perform a ranking of found security threats.
 
 ## Selection of Tools, Methodologies and Frameworks for Security Testing
 
-[documentation of choice of toolset utilised as part of the security implementation
-including rationale for choice, level of default security provision,
-and the manner in which you have further hardened the system.]
-
 I picked Microsoft Threat Modeling Process because it's very practical and well documented.
 It suggests using STRIDE and DREAD which are also very practical compared to OCTAVE or CVSS.
 
@@ -92,19 +88,31 @@ AppArmor is easier to configure than SELinux or SMACK (both are also MAC systems
 [presentation of findings from testing and assignment of an appropriate risk ratings
 with respect to the developed system.]
 
+First of all. In System Virtualization solution I picked (LXC & Docker)
+the majority of security features are turned off by default.
+
 ## Challenges & Limitations
 
-[highlight any areas of the system that may be vulnerable to attack
-or those areas that require further investigation
-and analysis to ascertain the system’s level of vulnerability.]
-
-The main challenge is that it's impossible at IaaS level indetify few major Security Objectvies
+The main challenge during threat modeling was the fact that
+it's impossible at IaaS level indetify few major Security Objectvies
 such as Indentity Abuse, Privacy, Financial Regulations and Reputation risks.
 These objectives should be managed at SaaS level.
+For example as IaaS level generated data is just a blob of bits.
+So all data should be assumed sensetive by default and treated accordingly.
+
+The other challenge was managing the private keys for both cloud providers.
+Amazon Ec2 and Windows Azure uses different mechanisms for user authentication and
+authorization.
+In both services I had to expose (upload to cloud managnemt console) my private cerificates.
+Also, there is no clear way to automate this procedure.
+So deploying such solution in organization with many developers whould be a challenge.
 
 ## Outcome
 
-[synopsis of results and outcome of project.]
+I was not satisfied with the levels of security provided by System Virtualization
+related to resource isolation & multitenancy.
+
+Encryption and container signing work well.
 
 ## Conclusion
 
@@ -136,3 +144,6 @@ Brunette, G., and R. Mogull. "Security Guidance for critical areas of focus in C
 <http://msdn.microsoft.com/en-us/magazine/cc163519.aspx>
 
 <https://www.owasp.org/index.php/Threat_Risk_Modeling#Identify_Threats>
+
+<https://wiki.ubuntu.com/AppArmor>
+
