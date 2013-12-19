@@ -37,10 +37,6 @@ Develop a threat model, analyse related security risks and mitigation techniques
 # Security analysis
 ## Approach & Planning
 
-[detailing the approach you have taken to implement security across the system in question
-and a project plan specifying the tasks
-and dependencies associated with the implementation of security]
-
 Microsoft Threat Modeling Process was used for threat modeling.
 It has the following stages:
 
@@ -52,6 +48,14 @@ It has the following stages:
 
 STRIDE was used to perform a decomposition of a system.
 DREAD was used to perform a ranking of found security threats.
+
+### Identify Security Objectives
+
+According to NIST:
+"Migrating data directly from one cloud system to another
+will require standards for federated identity, delegation of trust, and s
+ecure third-party data transfers".
+
 
 ## Selection of Tools, Methodologies and Frameworks for Security Testing
 
@@ -77,7 +81,6 @@ AppArmor profiles can be in one of two modes: enforcement and complain.
 Profiles loaded in enforcement mode will result in enforcement of the policy defined in the profile as well as reporting policy violation attempts (either via syslog or auditd).
 
 AppArmor is easier to configure than SELinux or SMACK (both are also MAC systems).
-
 
 ## Technical Testing Approach
 
@@ -112,7 +115,7 @@ So deploying such solution in organization with many developers whould be a chal
 I was not satisfied with the levels of security provided by System Virtualization
 related to resource isolation & multitenancy.
 
-Encryption and container signing work well.
+Encryption and container signing of containers work well.
 
 ## Conclusion
 
