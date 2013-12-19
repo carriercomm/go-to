@@ -56,6 +56,13 @@ According to NIST:
 will require standards for federated identity, delegation of trust, and s
 ecure third-party data transfers".
 
+### Design Overview
+
+### Decomposition
+
+### Identifying Threats
+
+### Identifying Vulnerabilities
 
 ## Selection of Tools, Methodologies and Frameworks for Security Testing
 
@@ -66,8 +73,6 @@ For data encyption OpenSSL was chosen. It's a very well documented and tested cr
 
 For testing the folling tools were used:
 
-* nmap for scanning network
-* metasploit for generating & deploying expoits
 * tcpdump for network sniffing
 * ApacheBench for benchmarking HTTP services
 * Custom Python scripts for DoS attacks
@@ -84,15 +89,35 @@ AppArmor is easier to configure than SELinux or SMACK (both are also MAC systems
 
 ## Technical Testing Approach
 
-[documentation of process involved in testing the security that has been implemented.]
+Testing was done on two instances: one in Amazon EC2 another in Windows Azure.
+The Firefox was running in a container over VNC remote desktop.
+Using `tcpdump` I was able to capture all packets coming from a particular container.
+
+After configuring some resource limits (CPU & Memory) I started Apache web server which was serving a single
+100MB file with enabled gzip compression with disabled caching.
+Around 100RPS (requests per second) the container stopped responding to queries exhasted all allocated resources.
+No futher grow of resources was detected.
+
+After that I tried to exhaust disk space and network bandwith.
+I was able to produce "Elephant flow", serving large file so effectevly all traffic was block by this flow.
+
+Disk was exhausted as well pretty easily, there was no default policies to limit the size of container.
 
 ## Findings & Risk Rating
 
-[presentation of findings from testing and assignment of an appropriate risk ratings
-with respect to the developed system.]
+### Findings
 
 First of all. In System Virtualization solution I picked (LXC & Docker)
 the majority of security features are turned off by default.
+One have to explicitly enable security fatuatures.
+
+Network isolation is pretty clear and well designed.
+When container is created you have an option to explicitly map which ports (wither TCP or UDP) should be visible
+outside of container.
+
+Disk quotes should be configured separately using advanced features of some file systems.
+
+### DREAD Risk Rating
 
 ## Challenges & Limitations
 
