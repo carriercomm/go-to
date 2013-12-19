@@ -70,9 +70,18 @@ Follow this guide to configure the system:
     sudo docker export firefox-vnc > firefox-vnc.tar
     bzip2 firefox-vnc.tar
     
-### Import a container:
+### Transfer archive to azure host:
 
-    cat firefox-vnc.tar | sudo docker import - firefox-vnc:orig
+    scp via my laptop
+    
+### Import a container as an image:
+
+    cat firefox-vnc.tar.bz2 | sudo docker import - vasilyev/firefox
+    
+### Restore container after serialization:
+
+    # It's a bug that CMD is not repated so must copy CMD line from Dockerfile
+    sudo docker run -name firefox-vnc -p 5900:5900 -d vasilyev/firefox x11vnc -forever -usepw -create
     
     
     
