@@ -64,7 +64,16 @@ and analysis to ascertain the system’s level of vulnerability.]
 
 ## Conclusion
 
-System Virtualization opens up new possibilities for auditing applications at IaaS level and inspecting activity as well as provide a fine grain mechanish to control resource consumption. System Virtualization also creates opprotunities for Cloud Broker and Cloud Auditors (accoring to NIST Reference Architecture).
+System Virtualization opens up new possibilities for auditing applications at IaaS level,
+inspecting activity and provide a fine grain mechanish to control resource consumption.
+System Virtualization also creates an opprotunities for Cloud Brokers and Cloud Auditors
+(for definitions see "NIST Reference Architecture").
+On the other hand it's not widely used in production deployments yet
+(there some early adopters - usually PaaS providers).
+Security is a major part of System Virtualization infrastructure,
+but to configure it properly one must have a deep understandings of a particular system's internals.
+Nevetheless System Vitualization might be de-facto standard for deploing systems in the Public Cloud
+as it allows to avoid Vendor Lock-In effect at Operating System level.
 
 
 ## References
